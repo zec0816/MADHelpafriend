@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Helpafriend</string>
+
+    <string-array name="roles_array">
+        <item>OKU</item>
+        <item>Volunteer</item>
+    </string-array>
+</resources>
