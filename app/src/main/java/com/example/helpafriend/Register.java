@@ -31,11 +31,10 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize views
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
-        spinnerRole = findViewById(R.id.spinnerRole); // Initialize Spinner
+        spinnerRole = findViewById(R.id.spinnerRole);
         btnRegister = findViewById(R.id.btnRegister);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +44,7 @@ public class Register extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 String email = etEmail.getText().toString();
-                String role = spinnerRole.getSelectedItem().toString(); // Get selected role
+                String role = spinnerRole.getSelectedItem().toString();
 
                 if (!(username.isEmpty() || password.isEmpty() || email.isEmpty())){
 
@@ -71,7 +70,7 @@ public class Register extends AppCompatActivity {
                             params.put("username", username);
                             params.put("password", password);
                             params.put("email", email);
-                            params.put("role", role); // Include role in parameters
+                            params.put("role", role);
 
                             return params;
                         }
