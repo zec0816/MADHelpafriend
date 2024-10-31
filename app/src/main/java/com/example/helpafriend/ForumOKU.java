@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ForumOKU extends AppCompatActivity {
+public class ForumOKU extends BaseActivity {
 
     private LinearLayout postContainer;
     private Button createPostButton;
@@ -35,6 +35,7 @@ public class ForumOKU extends AppCompatActivity {
         });
 
         fetchPosts();
+        setupBottomNavigation();
     }
 
     private void fetchPosts() {
@@ -80,13 +81,13 @@ public class ForumOKU extends AppCompatActivity {
         LinearLayout postBox = new LinearLayout(this);
         postBox.setOrientation(LinearLayout.VERTICAL);
         postBox.setPadding(16, 16, 16, 16);
-        postBox.setBackgroundResource(R.drawable.post_background); // Set the new background drawable
+        postBox.setBackgroundResource(R.drawable.post_background);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(0, 0, 0, 16); // Set bottom margin (16dp) for spacing
+        params.setMargins(0, 0, 0, 16);
         postBox.setLayoutParams(params);
 
         TextView titleView = new TextView(this);
@@ -108,4 +109,8 @@ public class ForumOKU extends AppCompatActivity {
         postContainer.addView(postBox);
     }
 
+    @Override
+    protected int getSelectedNavItemId() {
+        return R.id.nav_forum;
+    }
 }

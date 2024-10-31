@@ -23,7 +23,7 @@ import java.util.HashMap;
 public class Register extends AppCompatActivity {
 
     private EditText etUsername, etPassword, etEmail;
-    private Spinner spinnerRole; // Declare Spinner for role selection
+    private Spinner spinnerRole;
     private Button btnRegister;
 
     @Override

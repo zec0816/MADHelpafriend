@@ -18,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class ForumCreatePostOKU extends AppCompatActivity {
+public class ForumCreatePostOKU extends BaseActivity {
 
     private EditText editTextTitle, editTextContent;
     private Button buttonSubmitPost;
@@ -51,6 +51,7 @@ public class ForumCreatePostOKU extends AppCompatActivity {
                 }
             }
         });
+        setupBottomNavigation();
     }
     private class SubmitPostTask extends AsyncTask<String, Void, String> {
         @Override
