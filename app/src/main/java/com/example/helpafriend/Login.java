@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Register.class));
+
             }
         });
 
@@ -54,6 +54,7 @@ public class Login extends AppCompatActivity {
                         public void onResponse(String response) {
                             if (response.equals("Welcome")){
                                 Toast.makeText(getApplicationContext(), "Succesfully login", Toast.LENGTH_SHORT).show();
+
 
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }else{
