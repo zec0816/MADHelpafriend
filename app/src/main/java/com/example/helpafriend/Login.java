@@ -3,6 +3,7 @@ package com.example.helpafriend;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -52,14 +53,21 @@ public class Login extends AppCompatActivity {
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, Db_Contract.urlLogin + "?username=" + username + "&password=" + password, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            if (response.equals("Welcome")){
-                                Toast.makeText(getApplicationContext(), "Succesfully login", Toast.LENGTH_SHORT).show();
+                            if (response.equals("Welcome")) {
+                                Toast.makeText(getApplicationContext(), "Successfully login", Toast.LENGTH_SHORT).show();
 
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            }else{
+                                // Save username in SharedPreferences
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("username", username); // Save the logged-in username
+                                editor.apply(); // Apply changes
+
+                                startActivity(new Intent(getApplicationContext(), ForumOKU.class));
+                            } else {
                                 Toast.makeText(getApplicationContext(), "Login fail", Toast.LENGTH_SHORT).show();
                             }
                         }
+
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
