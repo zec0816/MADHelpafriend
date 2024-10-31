@@ -6,5 +6,7 @@ public class Db_Contract {
 
     public static final String urlRegister = "http://"+ip+"/helpafriend//register.php";
     public static final String urlLogin = "http://"+ip+"/helpafriend//login.php";
+    public static final String urlSubmitPost = "http://"+ip+"/helpafriend//submit_post.php";
+    public static final String urlGetPost = "http://"+ip+"/helpafriend//get_posts.php";
 
 }
