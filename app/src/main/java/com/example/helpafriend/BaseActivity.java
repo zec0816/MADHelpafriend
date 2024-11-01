@@ -41,7 +41,7 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_profile) {
                 if (getSelectedNavItemId() != R.id.nav_profile) {
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, Profile.class));
                     finish();
                 }
                 return true;
