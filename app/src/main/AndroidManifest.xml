@@ -51,6 +51,9 @@
         <activity
             android:name=".Rating"
             android:exported="true" />
+        <activity
+            android:name=".Profile"
+            android:exported="true" />
     </application>
 
 </manifest>
