@@ -1,101 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#AE8DE7"
     android:orientation="vertical"
     tools:context=".Register">
 
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_margin="20dp"
       android:gravity="center"
       android:text="Register"
-      android:layout_margin="20dp"
-      android:textStyle="bold"
-      android:textSize="28sp"/>
+      android:textColor="#000000"
+      android:textSize="34sp"
+      android:textStyle="bold" />
 
-  <androidx.cardview.widget.CardView
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="10dp"
-      app:cardCornerRadius="15dp"
-      android:elevation="10dp">
+      android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="387dp"
+        android:layout_height="385dp"
+        android:layout_margin="10dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.738">
 
-      <TextView
+      <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Username"
-          android:textStyle="bold"
-          android:textSize="20sp"/>
+          android:layout_margin="10dp"
+          android:orientation="vertical">
 
-      <EditText
-          android:id="@+id/etUsername"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="username"
-          android:drawableStart="@drawable/baseline_person_24"
-          android:drawablePadding="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Password"
-          android:textStyle="bold"
-          android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/baseline_person_24"
+            android:drawablePadding="10dp"
+            android:hint="username" />
 
-      <EditText
-          android:id="@+id/etPassword"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:drawableStart="@drawable/baseline_lock_24"
-          android:drawablePadding="10dp"
-          android:inputType="textPassword"
-          android:hint="password"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Email"
-          android:textStyle="bold"
-          android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:hint="password"
+            android:inputType="textPassword" />
 
-      <EditText
-          android:id="@+id/etEmail"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:drawableStart="@drawable/baseline_add_home_24"
-          android:drawablePadding="10dp"
-          android:hint="email"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Select Role"
-          android:textStyle="bold"
-          android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/baseline_add_home_24"
+            android:drawablePadding="10dp"
+            android:hint="email" />
 
-      <Spinner
-          android:id="@+id/spinnerRole"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:entries="@array/roles_array" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Role"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-      <Button
-          android:id="@+id/btnRegister"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="REGISTER"
-          android:backgroundTint="#4CAF50"
-          android:layout_margin="20dp"/>
-    </LinearLayout>
-  </androidx.cardview.widget.CardView>
+        <Spinner
+            android:id="@+id/spinnerRole"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/roles_array" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:backgroundTint="#5D13E6"
+            android:text="REGISTER" />
+      </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="162dp"
+        android:layout_height="189dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/n_p_172artboard_28_512" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

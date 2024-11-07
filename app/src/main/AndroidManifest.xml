@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+
 
     <application
         android:allowBackup="true"
@@ -29,8 +33,20 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
         </activity>
+        <activity
+            android:name=".Forum">
+        </activity>
+        <activity
+            android:name=".EmergencyHotlineActivity">
+        </activity>
+
+
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
