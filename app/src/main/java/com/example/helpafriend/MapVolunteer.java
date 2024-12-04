@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class MapVolunteer extends FragmentActivity {
+public class MapVolunteer extends BaseActivity {
 
     private SupportMapFragment supportMapFragment;
 
@@ -34,6 +34,7 @@ public class MapVolunteer extends FragmentActivity {
 
         // Get the locations from the server (you'll need to replace this with your own network request)
         getOKULocations();
+//        setupBottomNavigation();
     }
 
     private void getOKULocations() {
@@ -96,4 +97,8 @@ public class MapVolunteer extends FragmentActivity {
         // Add the request to the request queue
         Volley.newRequestQueue(this).add(jsonArrayRequest);
     }
+//    @Override
+//    protected int getSelectedNavItemId() {
+//        return R.id.nav_activity;
+//    }
 }
