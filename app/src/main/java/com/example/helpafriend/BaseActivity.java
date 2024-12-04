@@ -35,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_activity) {
                 if (getSelectedNavItemId() != R.id.nav_activity) {
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, MapVolunteer.class));
                     finish();
                 }
                 return true;
