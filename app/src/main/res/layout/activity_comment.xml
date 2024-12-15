@@ -1,52 +1,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="#F8F8F8">
 
-    <!-- Post Title -->
-    <TextView
-        android:id="@+id/commentPostTitle"
+    <!-- Back Button and Title -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="@color/colorPrimary">
 
-    <!-- Comments Container -->
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_back"
+            app:tint="@android:color/white"
+            android:contentDescription="Back Button" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/commentPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Comments"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Post Title Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/commentPostTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#4A4A4A"
+            android:text="Post Title Here" />
+    </LinearLayout>
+
+    <!-- Comments Section -->
     <ScrollView
+        android:id="@+id/commentsScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:elevation="4dp">
 
         <LinearLayout
             android:id="@+id/commentsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+            <!-- Individual Comments Will Be Dynamically Added Here -->
+        </LinearLayout>
     </ScrollView>
 
-    <!-- Input and Submit Button -->
+    <!-- Input Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:padding="8dp"
+        android:background="@android:color/white"
+        android:elevation="4dp">
 
         <!-- Comment Input -->
         <EditText
             android:id="@+id/commentInput"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:hint="Write a comment..."
-            android:padding="8dp" />
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textColor="#4A4A4A"
+            android:textColorHint="#BDBDBD"
+            android:textSize="14sp" />
 
-        <!-- Submit Comment Button -->
-        <Button
+        <!-- Submit Button -->
+        <ImageButton
             android:id="@+id/submitCommentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_send"
+            app:tint="@color/colorPrimary"
+            android:contentDescription="Submit Comment" />
     </LinearLayout>
 </LinearLayout>
+

@@ -44,7 +44,7 @@ public class ForumOKU extends BaseActivity {
         // Set up the create post button
         createPostButton.setOnClickListener(view -> {
             Intent intent = new Intent(ForumOKU.this, ForumCreatePostOKU.class);
-            startActivity(intent);
+            startActivity(intent); // Open the create post activity when the button is clicked
         });
 
         // Fetch posts from the server
@@ -143,59 +143,26 @@ public class ForumOKU extends BaseActivity {
             if (!isLoved[0]) {
                 loveButton.setImageResource(R.drawable.icon_heart_filled);
                 isLoved[0] = true;
-                sendLoveToServer(title, true, likeCountView);
             } else {
                 loveButton.setImageResource(R.drawable.icon_heart_unfilled);
                 isLoved[0] = false;
-                sendLoveToServer(title, false, likeCountView);
             }
         });
+
 
 
         // Add the post view to the container
         postContainer.addView(postView);
     }
 
-    private void sendLoveToServer(String postTitle, boolean isLoved, TextView likeCountView) {
-        String url = Db_Contract.urlAddLike; // Replace with the actual URL for your backend
-
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("title", postTitle); // Use title to identify the post
-            jsonBody.put("isLoved", isLoved); // Indicate whether the post is liked or unliked
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("ForumOKU", "onResume triggered");
+        if (postContainer != null) {
+            postContainer.removeAllViews(); // Clear existing posts to avoid duplicates
         }
-
-        Log.d("ForumOKU", "Sending Like Request: URL=" + url + ", Payload=" + jsonBody.toString());
-        Log.d("ForumOKU", "Payload: " + jsonBody.toString());
-
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                jsonBody,
-                response -> {
-                    try {
-                        Log.d("ForumOKU", "Response: " + response.toString());
-                        int updatedCount = response.getInt("updatedLikeCount");
-                        likeCountView.setText(String.format("%d Likes", updatedCount)); // Update like count
-                    } catch (JSONException e) {
-                        Log.e("ForumOKU", "Error parsing like count update response", e);
-                    }
-                },
-                error -> {
-                    Log.e("ForumOKU", "Failed to update like state", error);
-                    if (error.networkResponse != null) {
-                        Log.e("ForumOKU", "Response Code: " + error.networkResponse.statusCode);
-                        Log.e("ForumOKU", "Response Data: " + new String(error.networkResponse.data));
-                    } else {
-                        Log.e("ForumOKU", "Network response is null, possible connectivity issue.");
-                    }
-                }
-        );
-
-        Volley.newRequestQueue(this).add(request);
+        fetchPosts(); // Reload posts
     }
 
 

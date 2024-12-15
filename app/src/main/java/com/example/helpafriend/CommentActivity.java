@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,15 +29,17 @@ public class CommentActivity extends AppCompatActivity {
 
         // Get the post title from the intent
         String postTitle = getIntent().getStringExtra("postTitle");
+        Log.d("CommentActivity", "Received post title: " + postTitle);
 
         // Initialize UI elements
         TextView titleView = findViewById(R.id.commentPostTitle);
         commentsContainer = findViewById(R.id.commentsContainer);
         commentInput = findViewById(R.id.commentInput);
-        submitCommentButton = findViewById(R.id.submitCommentButton);
-
-        // Set the post title
-        titleView.setText(postTitle);
+        ImageButton submitCommentButton = (ImageButton) findViewById(R.id.submitCommentButton);
+        ImageButton backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(view -> finish());
+        // Set the post title (fallback to "Unknown Post" if null)
+        titleView.setText(postTitle != null ? postTitle : "Unknown Post");
 
         // Fetch existing comments
         fetchComments(postTitle);

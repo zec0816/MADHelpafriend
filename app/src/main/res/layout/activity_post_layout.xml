@@ -1,71 +1,94 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/post_background"
-    android:layout_marginBottom="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    android:background="@android:color/white">
 
-    <!-- Post Title -->
-    <TextView
-        android:id="@+id/postTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- Post Content -->
-    <TextView
-        android:id="@+id/postContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp" />
-
-    <!-- Post Date -->
-    <TextView
-        android:id="@+id/postDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:layout_marginTop="4dp" />
-
-    <!-- Buttons Container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/white">
 
-        <!-- Love Button -->
+        <!-- Post Title -->
         <TextView
-            android:id="@+id/likeCount"
+            android:id="@+id/postTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="0 Likes"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#4A4A4A"
+            android:text="Post Title" />
+
+        <!-- Post Content -->
+        <TextView
+            android:id="@+id/postContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="#FF000000" />
+            android:textColor="#6D6D6D"
+            android:layout_marginTop="8dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:text="This is the content of the post. It will be truncated if it's too long to fit in the layout." />
 
+        <!-- Post Date -->
+        <TextView
+            android:id="@+id/postDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#8A8A8A"
+            android:layout_marginTop="4dp"
+            android:text="Posted on 12 Dec 2024" />
 
-        <ImageButton
-            android:id="@+id/loveButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_heart_unfilled" />
+        <!-- Buttons Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical">
 
-        <!-- Comment Button -->
+            <!-- Like Button -->
+            <ImageButton
+                android:id="@+id/loveButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_heart_unfilled"
+                android:contentDescription="Like Button" />
 
-        <ImageButton
-            android:id="@+id/commentButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_comment" />
+            <!-- Like Count -->
+            <TextView
+                android:id="@+id/likeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="0 Likes"
+                android:textSize="14sp"
+                android:textColor="#4A4A4A" />
 
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Comment Button -->
+            <ImageButton
+                android:id="@+id/commentButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_comment"
+                android:contentDescription="Comment Button" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>
