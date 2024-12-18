@@ -18,9 +18,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MapVolunteer"
+            android:exported="false" />
+        <activity
             android:name=".ForumCreatePostOKU"
             android:exported="true" />
-
         <activity
             android:name=".ForumOKU"
             android:exported="false" />
@@ -30,7 +32,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAgclqzOcXt2tHIi-bwG5I8cz4SkVC7TJ8" />
+            android:value="AIzaSyAByH5htx1fGR3u18bp3s6pCCetavaUD_U" />
 
         <activity
             android:name=".Register"
@@ -46,8 +48,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Rating"
             android:exported="true" />

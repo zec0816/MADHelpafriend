@@ -8,5 +8,7 @@ public class Db_Contract {
     public static final String urlLogin = "http://"+ip+"/helpafriend//login.php";
     public static final String urlSubmitPost = "http://"+ip+"/helpafriend//submit_post.php";
     public static final String urlGetPost = "http://"+ip+"/helpafriend//get_posts.php";
+    public static final String urlGetNearbyOKU = "http://"+ip+"/helpafriend/get_nearby_oku.php";
+    public static final String urlStoreLocation = "http://"+ip+"/helpafriend/store_location.php";
 
 }
