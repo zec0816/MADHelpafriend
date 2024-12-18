@@ -1,12 +1,21 @@
+
 package com.example.helpafriend;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,98 +24,127 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ForumOKU extends BaseActivity {
 
     private LinearLayout postContainer;
     private Button createPostButton;
+    private Set<String> loadedPostIds = new HashSet<>(); // Track unique post IDs to avoid duplicates
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_oku);
 
+        // Initialize UI elements
         postContainer = findViewById(R.id.postContainer);
         createPostButton = findViewById(R.id.createPostButton);
 
+        // Set up the create post button
         createPostButton.setOnClickListener(view -> {
             Intent intent = new Intent(ForumOKU.this, ForumCreatePostOKU.class);
             startActivity(intent);
         });
 
+        // Fetch posts for the first time
         fetchPosts();
+
+        // Setup bottom navigation
         setupBottomNavigation();
     }
 
     private void fetchPosts() {
-        new FetchPostsTask().execute(Db_Contract.urlGetPost);
-    }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
 
-    private class FetchPostsTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
+        executor.execute(() -> {
             StringBuilder result = new StringBuilder();
+
             try {
-                URL url = new URL(urls[0]);
+                URL url = new URL(Db_Contract.urlGetPost); // Ensure your API URL is correct
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
+                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                    reader.close();
+                } else {
+                    Log.e("ForumOKU", "Server Error: " + conn.getResponseCode());
                 }
-                reader.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("ForumOKU", "Error fetching posts", e);
             }
-            return result.toString();
-        }
 
-        @Override
-        protected void onPostExecute(String result) {
-            try {
-                JSONArray jsonArray = new JSONArray(result);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject post = jsonArray.getJSONObject(i);
-                    addPostToContainer(post.getString("title"), post.getString("content"), post.getString("created_at"));
+            handler.post(() -> {
+                try {
+                    JSONArray jsonArray = new JSONArray(result.toString());
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject post = jsonArray.getJSONObject(i);
+
+                        // Extract post details
+                        String postId = post.optString("id_post", "Unknown");
+                        if (!loadedPostIds.contains(postId)) { // Check if post ID is already loaded
+                            String title = post.optString("title", "No Title");
+                            String content = post.optString("content", "No Content");
+                            String createdAt = post.optString("created_at", "Unknown Date");
+                            int likeCount = post.optInt("like_count", 0);
+                            // Add post to UI
+                            addPostToContainer(postId, title, content, createdAt, likeCount);
+                            loadedPostIds.add(postId); // Track loaded post ID
+                        }
+                    }
+                } catch (JSONException e) {
+                    Log.e("ForumOKU", "Error parsing JSON response", e);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+            });
+        });
     }
 
-    private void addPostToContainer(String title, String content, String createdAt) {
-        LinearLayout postBox = new LinearLayout(this);
-        postBox.setOrientation(LinearLayout.VERTICAL);
-        postBox.setPadding(16, 16, 16, 16);
-        postBox.setBackgroundResource(R.drawable.post_background);
+    private void addPostToContainer(String postId, String title, String content, String createdAt, int likeCount) {
+        View postView = getLayoutInflater().inflate(R.layout.activity_post_layout, postContainer, false);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(0, 0, 0, 16);
-        postBox.setLayoutParams(params);
+        // Bind views
+        TextView titleView = postView.findViewById(R.id.postTitle);
+        TextView contentView = postView.findViewById(R.id.postContent);
+        TextView dateView = postView.findViewById(R.id.postDate);
+        TextView likeCountView = postView.findViewById(R.id.likeCount);
+        ImageButton loveButton = postView.findViewById(R.id.loveButton);
+        ImageButton commentButton = postView.findViewById(R.id.commentButton);
 
-        TextView titleView = new TextView(this);
         titleView.setText(title);
-        titleView.setTextSize(18);
-
-        TextView contentView = new TextView(this);
         contentView.setText(content);
-        contentView.setTextSize(14);
-
-        TextView dateView = new TextView(this);
         dateView.setText(createdAt);
-        dateView.setTextSize(12);
+        likeCountView.setText(String.format("%d Likes", likeCount));
 
-        postBox.addView(titleView);
-        postBox.addView(contentView);
-        postBox.addView(dateView);
+        // Set up comment button
+        commentButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ForumOKU.this, CommentActivity.class);
+            intent.putExtra("postId", postId);
+            startActivity(intent);
+        });
 
-        postContainer.addView(postBox);
+        postContainer.addView(postView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reloadPosts();
+    }
+
+    private void reloadPosts() {
+        postContainer.removeAllViews(); // Clear the existing posts
+        loadedPostIds.clear(); // Clear the IDs to re-fetch posts properly
+        fetchPosts(); // Reload posts
     }
 
     @Override

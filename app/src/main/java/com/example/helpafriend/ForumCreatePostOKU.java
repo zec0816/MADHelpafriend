@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +38,8 @@ public class ForumCreatePostOKU extends BaseActivity {
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextContent = findViewById(R.id.editTextContent);
         buttonSubmitPost = findViewById(R.id.buttonSubmitPost);
+        ImageButton backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(view -> finish());
 
         buttonSubmitPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +54,8 @@ public class ForumCreatePostOKU extends BaseActivity {
                 }
             }
         });
-        setupBottomNavigation();
     }
+
     private class SubmitPostTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -106,6 +109,5 @@ public class ForumCreatePostOKU extends BaseActivity {
             }
         }
     }
-
 
 }
