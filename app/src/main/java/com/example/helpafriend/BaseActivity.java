@@ -23,7 +23,7 @@ public class BaseActivity extends AppCompatActivity {
 
             if (itemId == R.id.nav_home) {
                 if (getSelectedNavItemId() != R.id.nav_home) {
-                    startActivity(new Intent(this, ForumCreatePostOKU.class));
+                    startActivity(new Intent(this,MainActivity.class));
                     finish();
                 }
                 return true;
@@ -35,13 +35,19 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_activity) {
                 if (getSelectedNavItemId() != R.id.nav_activity) {
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, MapOKU.class));
                     finish();
                 }
                 return true;
             } else if (itemId == R.id.nav_profile) {
                 if (getSelectedNavItemId() != R.id.nav_profile) {
                     startActivity(new Intent(this, Profile.class));
+                    finish();
+                }
+                return true;
+            }else if (itemId == R.id.nav_emergency_contact) {
+                if (getSelectedNavItemId() != R.id.nav_emergency_contact) {
+                    startActivity(new Intent(this, EmergencyHotlineActivity.class));
                     finish();
                 }
                 return true;
