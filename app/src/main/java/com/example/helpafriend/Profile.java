@@ -44,7 +44,12 @@ public class Profile extends BaseActivity {
     }
 
     @Override
-    protected int getSelectedNavItemId() {
-        return R.id.nav_profile;
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_profile; // Default item for volunteer role
+        } else {
+            return R.id.nav_profile; // Correct ID for forum in OKU role
+        }
     }
+
 }

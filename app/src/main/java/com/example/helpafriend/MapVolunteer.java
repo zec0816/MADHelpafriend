@@ -97,8 +97,12 @@ public class MapVolunteer extends BaseActivity {
         // Add the request to the request queue
         Volley.newRequestQueue(this).add(jsonArrayRequest);
     }
-//    @Override
-//    protected int getSelectedNavItemId() {
-//        return R.id.nav_activity;
-//    }
+    @Override
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_activity; // Default item for volunteer role
+        } else {
+            return R.id.nav_profile; // Correct ID for forum in OKU role
+        }
+    }
 }

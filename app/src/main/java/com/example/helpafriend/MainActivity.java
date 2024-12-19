@@ -101,7 +101,12 @@ public class MainActivity extends BaseActivity {
 
 
     @Override
-    protected int getSelectedNavItemId() {
-        return R.id.nav_home;
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_home; // Default item for volunteer role
+        } else {
+            return R.id.nav_home; // Correct ID for forum in OKU role
+        }
     }
+
 }
