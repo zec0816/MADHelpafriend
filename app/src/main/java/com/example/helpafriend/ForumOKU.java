@@ -132,6 +132,18 @@ public class ForumOKU extends BaseActivity {
             startActivity(intent);
         });
 
+        // Handle love button functionality
+        final boolean[] isLoved = {false}; // Track love state for this post
+        loveButton.setOnClickListener(view -> {
+            if (!isLoved[0]) {
+                loveButton.setImageResource(R.drawable.icon_heart_filled);
+                isLoved[0] = true;
+            } else {
+                loveButton.setImageResource(R.drawable.icon_heart_unfilled);
+                isLoved[0] = false;
+            }
+        });
+
         postContainer.addView(postView);
     }
 
