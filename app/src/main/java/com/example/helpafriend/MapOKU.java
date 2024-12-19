@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -118,37 +119,44 @@ public class MapOKU extends AppCompatActivity {
     }
 
     // Send the current selected location to the backend for storage
+    // Inside the MapOKU.java class, modify the storeLocationInDatabase method
+
     private void storeLocationInDatabase(double latitude, double longitude) {
         String url = Db_Contract.urlStoreLocation; // Ensure this URL is correct in Db_Contract.java
 
-        // Replace with actual user ID from your app's login session
-        String userId = "1"; // Temporarily set to 1, replace with actual user ID
+        // Retrieve the saved username from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null); // Get the username
 
-        // Create a POST request to send the data to the server
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                response -> {
-                    // Log the response to check if it was successful
-                    Log.d("LocationResponse", response);
-                    Toast.makeText(MapOKU.this, "Location saved successfully!", Toast.LENGTH_SHORT).show();
-                },
-                error -> {
-                    // Log and display errors
-                    Log.e("LocationError", error.toString());
-                    Toast.makeText(MapOKU.this, "Failed to save location", Toast.LENGTH_SHORT).show();
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Send user ID, latitude, and longitude as parameters
-                Map<String, String> params = new HashMap<>();
-                params.put("id_user", "1"); // Pass the actual user ID here
-                params.put("latitude", String.valueOf(latitude));
-                params.put("longitude", String.valueOf(longitude));
-                return params;
-            }
-        };
+        if (username != null) {
+            // Create a POST request to send the data to the server
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    response -> {
+                        // Log the response to check if it was successful
+                        Log.d("LocationResponse", response);
+                        Toast.makeText(MapOKU.this, "Location saved successfully!", Toast.LENGTH_SHORT).show();
+                    },
+                    error -> {
+                        // Log and display errors
+                        Log.e("LocationError", error.toString());
+                        Toast.makeText(MapOKU.this, "Failed to save location", Toast.LENGTH_SHORT).show();
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    // Send username, latitude, and longitude as parameters
+                    Map<String, String> params = new HashMap<>();
+                    params.put("username", username); // Send the username
+                    params.put("latitude", String.valueOf(latitude));
+                    params.put("longitude", String.valueOf(longitude));
+                    return params;
+                }
+            };
 
-        // Add the request to the queue to execute it
-        Volley.newRequestQueue(this).add(stringRequest);
+            // Add the request to the queue to execute it
+            Volley.newRequestQueue(this).add(stringRequest);
+        } else {
+            Toast.makeText(MapOKU.this, "Username not found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Handle the result of the permission request

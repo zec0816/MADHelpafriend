@@ -148,7 +148,12 @@ public class ForumOKU extends BaseActivity {
     }
 
     @Override
-    protected int getSelectedNavItemId() {
-        return R.id.nav_forum;
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_forum; // Default item for volunteer role
+        } else {
+            return R.id.nav_forum; // Correct ID for forum in OKU role
+        }
     }
+
 }

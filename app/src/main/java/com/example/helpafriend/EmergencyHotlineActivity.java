@@ -49,7 +49,12 @@ public class EmergencyHotlineActivity extends BaseActivity {
     }
 
     @Override
-    protected int getSelectedNavItemId() {
-        return R.id.nav_emergency_contact; // Replace with the correct ID for this activity in your menu file
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_home; // Default item for volunteer role
+        } else {
+            return R.id.nav_emergency_contact; // Correct ID for Emergency Hotline in OKU role
+        }
     }
+
 }

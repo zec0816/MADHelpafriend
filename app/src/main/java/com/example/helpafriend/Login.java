@@ -14,8 +14,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
@@ -46,25 +49,43 @@ public class Login extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                if (! (username.isEmpty() || password.isEmpty())){
+                if (!(username.isEmpty() || password.isEmpty())) {
 
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.GET, Db_Contract.urlLogin + "?username=" + username + "&password=" + password, new Response.Listener<String>() {
+                    String url = Db_Contract.urlLogin + "?username=" + username + "&password=" + password;
+
+                    // Using JsonObjectRequest to parse JSON response
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
-                            if (response.equals("Welcome")) {
-                                Toast.makeText(getApplicationContext(), "Successfully login", Toast.LENGTH_SHORT).show();
+                        public void onResponse(JSONObject response) {
+                            try {
+                                String status = response.getString("status");
 
-                                // Save username in SharedPreferences
-                                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("username", username); // Save the logged-in username
-                                editor.apply(); // Apply changes
+                                if (status.equals("success")) {
+                                    String role = response.getString("role");
 
-                                startActivity(new Intent(getApplicationContext(), ForumOKU.class));
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Login fail", Toast.LENGTH_SHORT).show();
+                                    // Save username and role in SharedPreferences
+                                    SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("username", username); // Save the logged-in username
+                                    editor.putString("role", role); // Save the role
+                                    editor.apply(); // Apply changes
+
+                                    Toast.makeText(getApplicationContext(), "Successfully logged in", Toast.LENGTH_SHORT).show();
+
+                                    // Redirect based on role
+                                    if ("volunteer".equals(role)) {
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    } else {
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(), "Error parsing response", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -74,9 +95,11 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                    requestQueue.add(stringRequest);
-                }else{
-                    Toast.makeText(getApplicationContext(), "Incorrect password or username", Toast.LENGTH_SHORT).show();
+
+                    requestQueue.add(jsonObjectRequest);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please enter username and password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
