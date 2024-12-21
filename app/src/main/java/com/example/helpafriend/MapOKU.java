@@ -7,16 +7,22 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -29,6 +35,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +49,7 @@ public class MapOKU extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationProviderClient;
     private GoogleMap googleMap;
     private Marker currentMarker;
-
+    private Button acceptedRequestsButton;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final LatLng DEFAULT_LOCATION = new LatLng(3.1219267, 101.6569933);
 
@@ -50,6 +61,11 @@ public class MapOKU extends AppCompatActivity {
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        acceptedRequestsButton = findViewById(R.id.accepted_requests_button);
+
+        // Set up button click listener
+        acceptedRequestsButton.setOnClickListener(view -> showAcceptedRequests());
+
         // Check if the permission is granted
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -60,7 +76,6 @@ public class MapOKU extends AppCompatActivity {
         }
     }
 
-    // Get the current location of OKU
     @SuppressLint("MissingPermission")
     public void getCurrentLocation() {
         supportMapFragment.getMapAsync(map -> {
@@ -70,7 +85,6 @@ public class MapOKU extends AppCompatActivity {
             currentMarker = googleMap.addMarker(new MarkerOptions().position(DEFAULT_LOCATION).title("Current Location"));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15));
 
-            // Set a listener to detect when the user moves the marker
             googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
                 @Override
                 public void onMarkerDragStart(Marker marker) {}
@@ -80,31 +94,29 @@ public class MapOKU extends AppCompatActivity {
 
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
-                    currentMarker = marker;  // Update the current marker with the new position
-                    showConfirmationDialog(currentMarker.getPosition()); // Show the confirmation dialog
+                    currentMarker = marker;
+                    showConfirmationDialog(currentMarker.getPosition());
                 }
             });
 
-            // Set an onMapClickListener to allow the user to select a new location by tapping on the map
             googleMap.setOnMapClickListener(latLng -> {
                 if (currentMarker != null) {
-                    currentMarker.remove(); // Remove the old marker
+                    currentMarker.remove();
                 }
                 currentMarker = googleMap.addMarker(new MarkerOptions().position(latLng).draggable(true).title("Selected Location"));
-                showConfirmationDialog(latLng); // Show the confirmation dialog
+                showConfirmationDialog(latLng);
             });
 
             googleMap.setOnMarkerClickListener(marker -> {
                 if (marker.equals(currentMarker)) {
-                    showConfirmationDialog(marker.getPosition());  // Show the dialog
-                    return true;  // Returning true prevents the default behavior of the marker click (i.e., camera zoom)
+                    showConfirmationDialog(marker.getPosition());
+                    return true;
                 }
                 return false;
             });
         });
     }
 
-    // Show a dialog to confirm the selected location
     private void showConfirmationDialog(LatLng selectedLocation) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to choose this location?")
@@ -112,64 +124,134 @@ public class MapOKU extends AppCompatActivity {
                     storeLocationInDatabase(selectedLocation.latitude, selectedLocation.longitude);
                     Toast.makeText(MapOKU.this, "Waiting for volunteer...", Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton("No", (dialog, id) -> {
-                    dialog.dismiss(); // Dismiss the dialog if "No" is clicked
-                })
-                .create().show(); // Show the dialog
+                .setNegativeButton("No", (dialog, id) -> dialog.dismiss())
+                .create().show();
     }
 
-    // Send the current selected location to the backend for storage
-    // Inside the MapOKU.java class, modify the storeLocationInDatabase method
-
     private void storeLocationInDatabase(double latitude, double longitude) {
-        String url = Db_Contract.urlStoreLocation; // Ensure this URL is correct in Db_Contract.java
+        String url = Db_Contract.urlStoreLocation;
 
-        // Retrieve the saved username from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        String username = sharedPreferences.getString("username", null); // Get the username
+        String username = sharedPreferences.getString("username", null);
 
         if (username != null) {
-            // Create a POST request to send the data to the server
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                     response -> {
-                        // Log the response to check if it was successful
                         Log.d("LocationResponse", response);
                         Toast.makeText(MapOKU.this, "Location saved successfully!", Toast.LENGTH_SHORT).show();
                     },
                     error -> {
-                        // Log and display errors
                         Log.e("LocationError", error.toString());
                         Toast.makeText(MapOKU.this, "Failed to save location", Toast.LENGTH_SHORT).show();
                     }) {
                 @Override
                 protected Map<String, String> getParams() {
-                    // Send username, latitude, and longitude as parameters
                     Map<String, String> params = new HashMap<>();
-                    params.put("username", username); // Send the username
+                    params.put("username", username);
                     params.put("latitude", String.valueOf(latitude));
                     params.put("longitude", String.valueOf(longitude));
                     return params;
                 }
             };
 
-            // Add the request to the queue to execute it
             Volley.newRequestQueue(this).add(stringRequest);
         } else {
             Toast.makeText(MapOKU.this, "Username not found", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Handle the result of the permission request
+    private void showAcceptedRequests() {
+        String url = Db_Contract.urlGetAcceptedRequests;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null);
+
+        if (username == null) {
+            Toast.makeText(this, "Username not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        ArrayList<Map<String, String>> acceptedRequests = new ArrayList<>();
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject request = jsonArray.getJSONObject(i);
+                            Map<String, String> requestMap = new HashMap<>();
+                            requestMap.put("latitude", String.valueOf(request.getDouble("latitude")));
+                            requestMap.put("longitude", String.valueOf(request.getDouble("longitude")));
+                            acceptedRequests.add(requestMap);
+                        }
+
+                        if (acceptedRequests.isEmpty()) {
+                            Toast.makeText(this, "No accepted requests found", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle("Accepted Requests");
+
+                        ListView listView = new ListView(this);
+                        CustomAdapter adapter = new CustomAdapter(acceptedRequests);
+                        listView.setAdapter(adapter);
+
+                        builder.setView(listView);
+                        builder.setNegativeButton("Close", (dialog, which) -> dialog.dismiss());
+                        builder.create().show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    Log.e("VolleyError", error.toString());
+                    Toast.makeText(this, "Failed to fetch accepted requests", Toast.LENGTH_SHORT).show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("username", username);
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    class CustomAdapter extends ArrayAdapter<Map<String, String>> {
+        CustomAdapter(ArrayList<Map<String, String>> data) {
+            super(MapOKU.this, R.layout.list_item_request, data);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @NonNull View convertView, @NonNull ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.list_item_request, parent, false);
+            }
+
+            Map<String, String> request = getItem(position);
+
+            TextView tvLatitude = convertView.findViewById(R.id.tv_latitude);
+            TextView tvLongitude = convertView.findViewById(R.id.tv_longitude);
+
+            tvLatitude.setText("Latitude: " + request.get("latitude"));
+            tvLongitude.setText("Longitude: " + request.get("longitude"));
+
+            return convertView;
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, fetch the current location
                 getCurrentLocation();
             } else {
-                // Permission denied, show a message to the user
                 Toast.makeText(this, "Permission denied to access location", Toast.LENGTH_SHORT).show();
             }
         }
