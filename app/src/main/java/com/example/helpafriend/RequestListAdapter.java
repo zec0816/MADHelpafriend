@@ -2,6 +2,7 @@ package com.example.helpafriend;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,18 +71,29 @@ public class RequestListAdapter extends ArrayAdapter<JSONObject> {
     private void updateRequestStatus(int idLocation, String status) {
         String url = Db_Contract.urlUpdateStatus;
 
+        // Retrieve the saved username from SharedPreferences
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", null); // Get the username, default is null if not found
+
+        if (username == null) {
+            Toast.makeText(context, "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                response -> Toast.makeText(context, "Status updated to Accepted", Toast.LENGTH_SHORT).show(),
+                response -> Toast.makeText(context, "Status updated to " + status, Toast.LENGTH_SHORT).show(),
                 error -> Toast.makeText(context, "Failed to update status", Toast.LENGTH_SHORT).show()) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_location", String.valueOf(idLocation));
                 params.put("status", status);
+                params.put("username", username); // Send the username to the server
                 return params;
             }
         };
 
         Volley.newRequestQueue(context).add(stringRequest);
     }
+
 }

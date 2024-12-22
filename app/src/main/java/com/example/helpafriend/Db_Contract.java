@@ -12,5 +12,4 @@ public class Db_Contract {
     public static final String urlStoreLocation = "http://"+ip+"/helpafriend/store_location.php";
     public static final String urlUpdateStatus = "http://"+ip+"/helpafriend/update_status.php";
     public static final String urlGetAcceptedRequests = "http://" + ip + "/helpafriend/get_accepted_requests.php";
-
 }
