@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapOKU extends AppCompatActivity {
+public class MapOKU extends BaseActivity {
 
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -57,6 +57,7 @@ public class MapOKU extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_oku);
+        setupBottomNavigation();
 
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -254,6 +255,15 @@ public class MapOKU extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Permission denied to access location", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_home; // Default item for volunteer role
+        } else {
+            return R.id.nav_activity; // Correct ID for Emergency Hotline in OKU role
         }
     }
 }

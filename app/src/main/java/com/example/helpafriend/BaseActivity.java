@@ -47,8 +47,14 @@ public class BaseActivity extends AppCompatActivity {
                     }
                     return true;
                 } else if (itemId == R.id.volunteer_activity) {
-                    if (getSelectedNavItemId(role) != R.id.volunteer_profile) {
+                    if (getSelectedNavItemId(role) != R.id.volunteer_activity) {
                         startActivity(new Intent(this, MapVolunteer.class));
+                        finish();
+                    }
+                    return true;
+                } else if (itemId == R.id.volunteer_leaderboard) {
+                    if (getSelectedNavItemId(role) != R.id.volunteer_leaderboard) {
+                        startActivity(new Intent(this, Leaderboard.class));
                         finish();
                     }
                     return true;

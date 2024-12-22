@@ -39,6 +39,7 @@ public class MapVolunteer extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_volunteer);
+        setupBottomNavigation();
 
         // Initialize map fragment, button, and lists
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
@@ -157,5 +158,14 @@ public class MapVolunteer extends BaseActivity {
         };
 
         Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    @Override
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_activity; // Default item for volunteer role
+        } else {
+            return R.id.nav_profile; // Correct ID for Emergency Hotline in OKU role
+        }
     }
 }

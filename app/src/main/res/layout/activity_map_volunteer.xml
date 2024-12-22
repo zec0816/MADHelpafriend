@@ -10,7 +10,8 @@
         android:id="@+id/google_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_above="@id/bottomNavigationView" />
 
     <!-- Button to open the list of pending requests -->
     <Button
@@ -20,8 +21,18 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/purple_500"
+        android:backgroundTint="#8A2BE2"
         android:text="Pending Requests"
         android:textColor="@android:color/white" />
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#8A2BE2"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white" />
 
 </RelativeLayout>

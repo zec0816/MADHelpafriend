@@ -22,6 +22,6 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:text="Help Now"
-        android:backgroundTint="@color/purple_500"
+        android:backgroundTint="#8A2BE2"
         android:textColor="@android:color/white" />
 </RelativeLayout>

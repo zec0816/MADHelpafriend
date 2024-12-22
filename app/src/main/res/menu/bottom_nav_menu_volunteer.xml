@@ -12,6 +12,10 @@
         android:icon="@drawable/ic_activity"
         android:title="Activity" />
     <item
+        android:id="@+id/volunteer_leaderboard"
+        android:icon="@drawable/ic_leaderboard"
+        android:title="Leaderboard" />
+    <item
         android:id="@+id/volunteer_profile"
         android:icon="@drawable/ic_profile"
         android:title="Profile" />
