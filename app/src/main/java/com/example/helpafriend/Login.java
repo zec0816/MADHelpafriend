@@ -1,7 +1,6 @@
 package com.example.helpafriend;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,14 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,7 +52,6 @@ public class Login extends AppCompatActivity {
 
                     String url = Db_Contract.urlLogin + "?username=" + username + "&password=" + password;
 
-                    // Using JsonObjectRequest to parse JSON response
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -70,6 +66,7 @@ public class Login extends AppCompatActivity {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("username", username); // Save the logged-in username
                                     editor.putString("role", role); // Save the role
+                                    editor.putString("password", password);
                                     editor.apply(); // Apply changes
 
                                     Toast.makeText(getApplicationContext(), "Successfully logged in", Toast.LENGTH_SHORT).show();
@@ -88,7 +85,6 @@ public class Login extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Error parsing response", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {

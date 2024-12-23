@@ -5,6 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +24,18 @@
         android:theme="@style/Theme.Helpafriend"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <!-- FileProvider configuration -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.your.package.name.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".MapVolunteer"
             android:exported="false" />
@@ -42,26 +61,36 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Rating"
             android:exported="true" />
         <activity
             android:name=".Profile"
-            android:exported="true" />
-
+            android:exported="false" />
         <activity
             android:name=".CommentActivity"
             android:exported="true" />
-
         <activity
             android:name=".EmergencyHotlineActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DonateProfile"
+            android:exported="true" />
+        <activity
+            android:name=".HelpSupportProfile"
+            android:exported="true" />
+        <activity
+            android:name=".SettingsProfile"
+            android:exported="true" />
+        <activity
+            android:name=".EditProfile"
             android:exported="true" />
 
     </application>
