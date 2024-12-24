@@ -31,11 +31,10 @@
                 android:id="@+id/profileImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/man"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="onProfileImageClick" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/man" />
         </androidx.cardview.widget.CardView>
 
         <!-- Profile Name -->
