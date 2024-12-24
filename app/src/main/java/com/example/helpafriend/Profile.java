@@ -66,6 +66,7 @@ public class Profile extends BaseActivity {
 
         // Set up click listeners
         setupClickListeners();
+        setupBottomNavigation();
     }
 
     private void initializeViews() {
@@ -302,9 +303,10 @@ public class Profile extends BaseActivity {
         }
     }
 
+    @Override
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_home;
+            return R.id.volunteer_profile;
         } else {
             return R.id.nav_profile;
         }
