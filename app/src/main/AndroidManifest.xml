@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Leaderboard"
+            android:exported="false" />
+        <activity
             android:name=".MapVolunteer"
             android:exported="false" />
         <activity
@@ -48,22 +51,19 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Rating"
             android:exported="true" />
         <activity
             android:name=".Profile"
             android:exported="true" />
-
         <activity
             android:name=".CommentActivity"
             android:exported="true" />
-
         <activity
             android:name=".EmergencyHotlineActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>
