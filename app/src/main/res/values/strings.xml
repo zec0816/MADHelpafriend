@@ -5,4 +5,32 @@
         <item>OKU</item>
         <item>Volunteer</item>
     </string-array>
+
+    <string name="email_recipient">support@myapp.com</string>
+    <string name="email_subject">Support Request</string>
+    <string name="email_body" translatable="false">Dear Support Team,\n\nPlease describe your issue here...\n\n---</string>
+    <string name="error_no_email_app" translatable="false">No email application found!</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="preferences">Preferences</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="language">Language</string>
+    <string name="font_size">Font Size</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="select_language">Select Language</string>
+    <string name="select_font_size">Select Font Size</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_account_confirm">Are you sure you want to delete your account?</string>
+    <string name="dark_mode_enabled">Dark mode enabled</string>
+    <string name="dark_mode_disabled">Dark mode disabled</string>
+    <string name="change_successful">Changes saved successfully</string>
+
+
 </resources>
