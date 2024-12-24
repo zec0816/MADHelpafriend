@@ -35,28 +35,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Settings"
+            android:text="@string/settings_title"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Preferences Section Label -->
+
+    <!-- Dark Mode Setting -->
+
     <TextView
         android:id="@+id/preferencesLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:padding="8dp"
         android:text="@string/preferences"
         android:textColor="#666666"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <!-- Dark Mode Setting -->
     <LinearLayout
         android:id="@+id/darkModeOption"
         android:layout_width="0dp"
@@ -134,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="Language"
+            android:text="@string/language"
             android:textColor="#666666"
             android:textSize="18sp" />
 
@@ -166,7 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="Font Size"
+            android:text="@string/font_size"
             android:textColor="#666666"
             android:textSize="18sp" />
 
