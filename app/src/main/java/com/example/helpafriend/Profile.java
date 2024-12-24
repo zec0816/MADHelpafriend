@@ -23,8 +23,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
-
 public class Profile extends BaseActivity {
     private static final int CAMERA_REQUEST_CODE = 1001;
     private static final int GALLERY_REQUEST_CODE = 1002;
@@ -38,40 +36,60 @@ public class Profile extends BaseActivity {
     private Uri currentPhotoUri;
     private Bitmap currentBitmap;
     private SharedPreferences preferences;
-
+    private String currentUsername;
+    private String currentRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Initialize views and preferences
-        profileImage = findViewById(R.id.profileImage);
-        usernameEditText = findViewById(R.id.usernameEditText);
+        // Initialize preferences
         preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
+        // Get current user information from SharedPreferences
+        currentUsername = preferences.getString("username", null);
+        currentRole = preferences.getString("role", null);
 
+        // Check if user is logged in
+        if (currentUsername == null || currentRole == null) {
+            Toast.makeText(this, "Please log in first", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, Login.class));
+            finish();
+            return;
+        }
 
-        // Retrieve the username from SharedPreferences
-        String username = preferences.getString("username", "Default Username");
-        usernameEditText.setText(username);
+        // Initialize views
+        initializeViews();
 
-        // Load profile image
-        loadProfileImage();
+        // Load user data
+        loadUserData();
 
-        // Set up click listener for profile image
-        profileImage.setOnClickListener(this::handleProfileImageClick);
+        // Set up click listeners
+        setupClickListeners();
+    }
 
-        // Initialize buttons
+    private void initializeViews() {
+        profileImage = findViewById(R.id.profileImage);
+        usernameEditText = findViewById(R.id.usernameEditText);
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnSettings = findViewById(R.id.btnSettings);
         btnHelpSupport = findViewById(R.id.btnHelpSupport);
         btnDonate = findViewById(R.id.btnDonate);
+    }
 
-        // Set click listeners for buttons
-        btnEditProfile.setOnClickListener(v -> {
-            showPasswordVerificationDialog();
-        });
+    private void loadUserData() {
+        // Set username
+        usernameEditText.setText(currentUsername);
+
+        // Load profile image
+        loadProfileImage();
+    }
+
+    private void setupClickListeners() {
+        profileImage.setOnClickListener(this::handleProfileImageClick);
+
+        btnEditProfile.setOnClickListener(v -> showPasswordVerificationDialog());
 
         btnSettings.setOnClickListener(v -> {
             Intent intent = new Intent(Profile.this, SettingsProfile.class);
@@ -89,10 +107,10 @@ public class Profile extends BaseActivity {
         });
     }
 
-
     private void loadProfileImage() {
-        // First try to load from internal storage
-        File imageFile = new File(getFilesDir(), "profile_image.jpg");
+        // Get user-specific image file
+        File imageFile = getUserProfileImageFile();
+
         if (imageFile.exists()) {
             try {
                 currentPhotoUri = Uri.fromFile(imageFile);
@@ -103,8 +121,8 @@ public class Profile extends BaseActivity {
             }
         }
 
-        // If internal storage image doesn't exist, try SharedPreferences URI
-        String profileImageUri = preferences.getString("profile_image_uri", null);
+        // If no user-specific image exists, try to get from SharedPreferences
+        String profileImageUri = preferences.getString("profile_image_uri_" + currentUsername, null);
         if (profileImageUri != null) {
             try {
                 currentPhotoUri = Uri.parse(profileImageUri);
@@ -118,6 +136,11 @@ public class Profile extends BaseActivity {
         } else {
             setDefaultImage();
         }
+    }
+
+    private File getUserProfileImageFile() {
+        // Create a username-specific filename
+        return new File(getFilesDir(), "profile_image_" + currentUsername + ".jpg");
     }
 
     private void setDefaultImage() {
@@ -146,8 +169,6 @@ public class Profile extends BaseActivity {
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
-
-        // Show keyboard automatically
         passwordEditText.requestFocus();
 
         dialog.setOnShowListener(dialogInterface -> {
@@ -166,7 +187,6 @@ public class Profile extends BaseActivity {
     }
 
     private void verifyPassword(String password, Dialog dialog) {
-        SharedPreferences preferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String storedPassword = preferences.getString("password", "");
 
         if (storedPassword.equals(password)) {
@@ -179,7 +199,6 @@ public class Profile extends BaseActivity {
     }
 
     private void handleProfileImageClick(View view) {
-        // Check for permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
             showImageOptionsDialog();
@@ -225,7 +244,6 @@ public class Profile extends BaseActivity {
                 currentPhotoUri = selectedImageUri;
                 profileImage.setImageURI(selectedImageUri);
                 try {
-                    // Convert URI to bitmap and save to internal storage
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
                     currentBitmap = bitmap;
                     uploadProfileImage();
@@ -247,11 +265,11 @@ public class Profile extends BaseActivity {
             saveImageToStorage(currentBitmap);
 
             // Update SharedPreferences with the internal storage URI
-            File savedFile = new File(getFilesDir(), "profile_image.jpg");
+            File savedFile = getUserProfileImageFile();
             currentPhotoUri = Uri.fromFile(savedFile);
 
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("profile_image_uri", currentPhotoUri.toString());
+            editor.putString("profile_image_uri_" + currentUsername, currentPhotoUri.toString());
             editor.apply();
 
             Toast.makeText(this, "Profile photo updated!", Toast.LENGTH_SHORT).show();
@@ -262,7 +280,7 @@ public class Profile extends BaseActivity {
 
     private void saveImageToStorage(Bitmap bitmap) {
         try {
-            FileOutputStream outputStream = openFileOutput("profile_image.jpg", MODE_PRIVATE);
+            FileOutputStream outputStream = new FileOutputStream(getUserProfileImageFile());
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
             outputStream.close();
         } catch (IOException e) {
@@ -287,9 +305,9 @@ public class Profile extends BaseActivity {
 
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_home; // Default item for volunteer role
+            return R.id.volunteer_home;
         } else {
-            return R.id.nav_profile; // Correct ID for Emergency Hotline in OKU role
+            return R.id.nav_profile;
         }
     }
 }
