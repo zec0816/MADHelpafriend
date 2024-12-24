@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">BantuRakan</string>
+
+    <!-- Roles Array -->
+    <string-array name="roles_array">
+        <item>OKU</item>
+        <item>Sukarelawan</item>
+    </string-array>
+
+    <!-- Email -->
+    <string name="email_recipient">support@myapp.com</string>
+    <string name="email_subject">Permintaan Sokongan</string>
+    <!-- Keeping email_body as non-translatable, but you can still translate the content if desired -->
+    <string name="email_body" translatable="false">
+        Pasukan Sokongan yang dihormati,
+
+        Sila jelaskan masalah anda di sini...
+
+        ---
+    </string>
+    <string name="error_no_email_app" translatable="false">Tiada aplikasi e-mel ditemui!</string>
+
+    <string name="settings_title">Tetapan</string>
+    <string name="preferences">Keutamaan</string>
+    <string name="dark_mode">Mod Gelap</string>
+    <string name="notifications">Pemberitahuan</string>
+    <string name="language">Bahasa</string>
+    <string name="font_size">Saiz Fon</string>
+    <string name="logout">Log Keluar</string>
+    <string name="delete_account">Hapus Akaun</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="select_font_size">Pilih Saiz Fon</string>
+    <string name="small">Kecil</string>
+    <string name="medium">Sederhana</string>
+    <string name="large">Besar</string>
+    <string name="cancel">Batal</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="delete_account_confirm">Adakah anda pasti ingin menghapuskan akaun anda?</string>
+    <string name="dark_mode_enabled">Mod gelap diaktifkan</string>
+    <string name="dark_mode_disabled">Mod gelap dimatikan</string>
+    <string name="change_successful">Perubahan berjaya disimpan</string>
+
+</resources>

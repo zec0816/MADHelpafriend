@@ -70,6 +70,7 @@ public class Login extends AppCompatActivity {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("username", username); // Save the logged-in username
                                     editor.putString("role", role); // Save the role
+                                    editor.putString("password", password);
                                     editor.apply(); // Apply changes
 
                                     Toast.makeText(getApplicationContext(), "Successfully logged in", Toast.LENGTH_SHORT).show();
