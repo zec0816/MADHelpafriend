@@ -1,0 +1,182 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".HelpSupportProfile">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8A2BE2"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:padding="8dp"
+            android:src="@drawable/icon_back"
+            app:tint="@android:color/white" />
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Help And Support"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tvFAQTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Frequently Asked Questions"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollFAQ"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvFAQTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnContactSupport">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvQuestion1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Q: How can I create an account?"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/tvAnswer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A: You can create an account by clicking the 'Sign Up' button on the login screen and filling in the required details."
+                android:textSize="14sp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvQuestion5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Q: How can I change my username?"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/tvAnswer5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A: To change your username, navigate to the 'Settings' page, select 'Edit Profile,' and update your username. Save the changes to confirm."
+                android:textSize="14sp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvQuestion6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Q: How can I change my password?"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/tvAnswer6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A: To change your password, go to 'Settings,' select 'Change Password,' and enter your current password followed by the new password. Save the changes to update your password."
+                android:textSize="14sp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvQuestion3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Q: How can I change my profile picture?"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvAnswer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A: Go to the 'Profile' section, tap on your current profile picture, and upload a new image."
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:layout_marginBottom="12dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnContactSupport"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Contact Support"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:cornerRadius="12dp"
+        app:backgroundTint="#8A2BE2"
+        app:layout_constraintTop_toBottomOf="@id/scrollFAQ"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,51 +32,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/man" />
+                android:src="@drawable/man"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onProfileImageClick" />
         </androidx.cardview.widget.CardView>
 
         <!-- Profile Name -->
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="205dp"
+            android:layout_height="42dp"
             android:layout_marginTop="12dp"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:hint="Enter your username"
+            android:imeOptions="actionDone"
             android:text="John Maxwell"
             android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <!-- Profile Age -->
-        <TextView
-            android:id="@+id/userAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="27 years old"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
     </LinearLayout>
 
     <!-- Menu Card -->
+
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="356dp"
+        android:layout_height="390dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/headerSection">
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerSection"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <!-- Edit Profile -->
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -89,14 +96,22 @@
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_arrow"
-                    app:tint="#666666" />
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <ImageButton
+                        android:id="@+id/btnEditProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:contentDescription="Edit profile"
+                        android:src="@drawable/icon_arrow"
+                        app:tint="#666666" />
+                </FrameLayout>
             </LinearLayout>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -105,7 +120,8 @@
             <!-- App Settings -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -118,14 +134,22 @@
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_arrow"
-                    app:tint="#666666" />
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <ImageButton
+                        android:id="@+id/btnSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:contentDescription="Open settings"
+                        android:src="@drawable/icon_arrow"
+                        app:tint="#666666" />
+                </FrameLayout>
             </LinearLayout>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -134,7 +158,8 @@
             <!-- Help & Support -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -147,14 +172,22 @@
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_arrow"
-                    app:tint="#666666" />
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <ImageButton
+                        android:id="@+id/btnHelpSupport"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:contentDescription="Help and support"
+                        android:src="@drawable/icon_arrow"
+                        app:tint="#666666" />
+                </FrameLayout>
             </LinearLayout>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -163,7 +196,8 @@
             <!-- Donate to Us -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="16dp">
@@ -176,27 +210,38 @@
                     android:textColor="#333333"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_arrow"
-                    app:tint="#666666" />
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:foreground="?attr/selectableItemBackground">
+
+
+                    <ImageButton
+                        android:id="@+id/btnDonate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:contentDescription="Donate to us"
+                        android:src="@drawable/icon_arrow"
+                        app:tint="#666666" />
+                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_menu"
         android:layout_gravity="bottom"
         android:background="#8A2BE2"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
