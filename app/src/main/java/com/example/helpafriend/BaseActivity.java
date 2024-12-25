@@ -36,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
                 // Handle volunteer-specific navigation
                 if (itemId == R.id.volunteer_home) {
                     if (getSelectedNavItemId(role) != R.id.volunteer_home) {
-                        startActivity(new Intent(this, MainActivity.class));
+                        startActivity(new Intent(this, VolunteerMainPage.class));
                         finish();
                     }
                     return true;
