@@ -183,6 +183,7 @@ public class MapOKU extends BaseActivity {
                             Map<String, String> requestMap = new HashMap<>();
                             requestMap.put("latitude", String.valueOf(request.getDouble("latitude")));
                             requestMap.put("longitude", String.valueOf(request.getDouble("longitude")));
+                            requestMap.put("volunteer_name", request.optString("volunteer_name", "Unknown"));
                             acceptedRequests.add(requestMap);
                         }
 
@@ -191,6 +192,7 @@ public class MapOKU extends BaseActivity {
                             return;
                         }
 
+                        // Display the accepted requests in a dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("Accepted Requests");
 
@@ -221,6 +223,7 @@ public class MapOKU extends BaseActivity {
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
+
     class CustomAdapter extends ArrayAdapter<Map<String, String>> {
         CustomAdapter(ArrayList<Map<String, String>> data) {
             super(MapOKU.this, R.layout.list_item_request, data);
@@ -237,13 +240,16 @@ public class MapOKU extends BaseActivity {
 
             TextView tvLatitude = convertView.findViewById(R.id.tv_latitude);
             TextView tvLongitude = convertView.findViewById(R.id.tv_longitude);
+            TextView tvVolunteerName = convertView.findViewById(R.id.tv_volunteer_name);
 
             tvLatitude.setText("Latitude: " + request.get("latitude"));
             tvLongitude.setText("Longitude: " + request.get("longitude"));
+            tvVolunteerName.setText("Volunteer: " + request.get("volunteer_name"));
 
             return convertView;
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
