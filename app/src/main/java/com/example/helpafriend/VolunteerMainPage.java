@@ -22,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VolunteerMainPage extends AppCompatActivity {
+public class VolunteerMainPage extends BaseActivity {
 
     private TextView usernameTextView;
     private TextView totalPointsTextView;
@@ -57,7 +57,7 @@ public class VolunteerMainPage extends AppCompatActivity {
         fetchNumHelped(username); // Fetch num_helped based on username
         fetchHelpHistory(username); // Fetch OKU names and help dates
 
-//        setupBottomNavigation();
+        setupBottomNavigation();
     }
 
     private void fetchHelpHistory(String username) {
@@ -153,5 +153,14 @@ public class VolunteerMainPage extends AppCompatActivity {
         );
 
         Volley.newRequestQueue(this).add(request);
+    }
+
+    @Override
+    protected int getSelectedNavItemId(String role) {
+        if ("volunteer".equals(role)) {
+            return R.id.volunteer_home;
+        } else {
+            return R.id.nav_home;
+        }
     }
 }

@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
 
                                     // Redirect based on role
                                     if ("volunteer".equals(role)) {
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        startActivity(new Intent(getApplicationContext(), VolunteerMainPage.class));
                                     } else {
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     }
