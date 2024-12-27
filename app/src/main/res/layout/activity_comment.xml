@@ -49,10 +49,10 @@
             android:id="@+id/commentPostTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Unknown Post"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#4A4A4A"
-            android:text="Post Title Here" />
+            android:padding="16dp" />
     </LinearLayout>
 
     <!-- Comments Section -->
@@ -71,9 +71,8 @@
             android:id="@+id/commentsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!-- Individual Comments Will Be Dynamically Added Here -->
-        </LinearLayout>
+            android:orientation="vertical" />
+
     </ScrollView>
 
     <!-- Input Section -->
