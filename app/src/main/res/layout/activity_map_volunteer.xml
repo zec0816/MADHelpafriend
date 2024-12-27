@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,16 +10,29 @@
         android:id="@+id/google_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_above="@id/bottomNavigationView" />
 
-<!--    &lt;!&ndash; Bottom Navigation View &ndash;&gt;-->
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottomNavigationView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        app:itemIconTint="@color/white"-->
-<!--        app:itemTextColor="@color/white"-->
-<!--        app:menu="@menu/bottom_nav_menu" />-->
+    <!-- Button to open the list of pending requests -->
+    <Button
+        android:id="@+id/show_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="#8A2BE2"
+        android:text="Pending Requests"
+        android:textColor="@android:color/white" />
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#8A2BE2"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white" />
+
 </RelativeLayout>

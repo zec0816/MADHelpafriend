@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">मित्र की सहायता</string>
+
+    <!-- Roles Array -->
+    <string-array name="roles_array">
+        <item>OKU</item>
+        <item>स्वयंसेवक</item>
+    </string-array>
+
+    <!-- Email -->
+    <string name="email_recipient">support@myapp.com</string>
+    <string name="email_subject">सहायता अनुरोध</string>
+    <!-- Keeping email_body as non-translatable, but you can still translate the content if desired -->
+    <string name="email_body" translatable="false">
+        प्रिय सहायता टीम,
+
+        कृपया यहां अपनी समस्या का वर्णन करें...
+
+        ---
+    </string>
+    <string name="error_no_email_app" translatable="false">कोई ईमेल एप्लिकेशन नहीं मिला!</string>
+
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="preferences">प्राथमिकताएँ</string>
+    <string name="dark_mode">डार्क मोड</string>
+    <string name="notifications">सूचनाएँ</string>
+    <string name="language">भाषा</string>
+    <string name="font_size">फॉन्ट आकार</string>
+    <string name="logout">लॉगआउट</string>
+    <string name="delete_account">खाता हटाएं</string>
+    <string name="select_language">भाषा चुनें</string>
+    <string name="select_font_size">फॉन्ट आकार चुनें</string>
+    <string name="small">छोटा</string>
+    <string name="medium">मध्यम</string>
+    <string name="large">बड़ा</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="yes">हाँ</string>
+    <string name="no">नहीं</string>
+    <string name="delete_account_confirm">क्या आप निश्चित हैं कि आप अपना खाता हटाना चाहते हैं?</string>
+    <string name="dark_mode_enabled">डार्क मोड सक्षम किया गया</string>
+    <string name="dark_mode_disabled">डार्क मोड अक्षम किया गया</string>
+    <string name="change_successful">परिवर्तन सफलतापूर्वक सहेजे गए</string>
+
+</resources>

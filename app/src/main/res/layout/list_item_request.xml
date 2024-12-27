@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Latitude TextView -->
+    <TextView
+        android:id="@+id/tv_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Latitude: "
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <!-- Longitude TextView -->
+    <TextView
+        android:id="@+id/tv_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Longitude: "
+        android:textColor="@android:color/black" />
+
+    <!-- Volunteer Name TextView -->
+    <TextView
+        android:id="@+id/tv_volunteer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volunteer: "
+        android:textColor="@android:color/black"
+        android:textStyle="italic"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

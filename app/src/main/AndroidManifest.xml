@@ -5,6 +5,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +24,12 @@
         android:theme="@style/Theme.Helpafriend"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".VolunteerMainPage"
+            android:exported="false" />
+        <activity
+            android:name=".Leaderboard"
+            android:exported="false" />
         <activity
             android:name=".MapVolunteer"
             android:exported="false" />
@@ -32,7 +45,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAByH5htx1fGR3u18bp3s6pCCetavaUD_U" />
+            android:value="AIzaSyA27anYskRAJmE6UPB3RfYJvMKD7_199tk" />
 
         <activity
             android:name=".Register"
@@ -48,22 +61,31 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Rating"
             android:exported="true" />
         <activity
             android:name=".Profile"
             android:exported="true" />
-
         <activity
             android:name=".CommentActivity"
             android:exported="true" />
-
         <activity
             android:name=".EmergencyHotlineActivity"
             android:exported="true" />
-
+        <activity
+            android:name=".DonateProfile"
+            android:exported="true" />
+        <activity
+            android:name=".HelpSupportProfile"
+            android:exported="true" />
+        <activity
+            android:name=".SettingsProfile"
+            android:exported="true" />
+        <activity
+            android:name=".EditProfile"
+            android:exported="true" />
     </application>
 
 </manifest>

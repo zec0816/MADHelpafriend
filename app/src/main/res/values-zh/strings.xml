@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">帮助好友</string>
+
+    <!-- Roles Array -->
+    <string-array name="roles_array">
+        <item>OKU</item>
+        <item>志愿者</item>
+    </string-array>
+
+    <!-- Email -->
+    <string name="email_recipient">support@myapp.com</string>
+    <string name="email_subject">支援请求</string>
+    <!-- Keeping email_body as non-translatable, but you can still translate the content if desired -->
+    <string name="email_body" translatable="false">
+        尊敬的客服团队，
+
+        请在此描述您的问题...
+
+        ---
+    </string>
+    <string name="error_no_email_app" translatable="false">未找到可用的邮件应用程序！</string>
+
+    <string name="settings_title">设置</string>
+    <string name="preferences">首选项</string>
+    <string name="dark_mode">黑暗模式</string>
+    <string name="notifications">通知</string>
+    <string name="language">语言</string>
+    <string name="font_size">字体大小</string>
+    <string name="logout">退出登录</string>
+    <string name="delete_account">删除账户</string>
+    <string name="select_language">选择语言</string>
+    <string name="select_font_size">选择字体大小</string>
+    <string name="small">小号</string>
+    <string name="medium">中号</string>
+    <string name="large">大号</string>
+    <string name="cancel">取消</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="delete_account_confirm">您确定要删除您的账户吗？</string>
+    <string name="dark_mode_enabled">暗模式已启用</string>
+    <string name="dark_mode_disabled">暗模式已禁用</string>
+    <string name="change_successful">修改已保存</string>
+
+</resources>
