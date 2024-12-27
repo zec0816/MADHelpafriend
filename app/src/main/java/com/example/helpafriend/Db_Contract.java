@@ -2,7 +2,7 @@ package com.example.helpafriend;
 
 public class Db_Contract {
 
-    public static String ip = "192.168.0.165"; //change to your ip
+    public static String ip = "192.168.110.70"; //change to your ip
 
     public static final String urlRegister = "http://"+ip+"/helpafriend//register.php";
     public static final String urlLogin = "http://"+ip+"/helpafriend//login.php";
@@ -17,5 +17,7 @@ public class Db_Contract {
     public static final String urlDeleteProfile = "http://" + ip + "/helpafriend/deleteProfile.php";
     public static final String urlFetchUserPoints = "http://" + ip + "/helpafriend/fetch_user_points.php";
     public static final String urlFetchHelpHistory = "http://" + ip + "/helpafriend/fetch_help_history.php";
+
+    public static final String urlLikes = "http://" + ip + "/helpafriend/likes.php";
 
 }
