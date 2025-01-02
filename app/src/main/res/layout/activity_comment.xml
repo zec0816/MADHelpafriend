@@ -34,6 +34,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/white" />
+
     </LinearLayout>
 
     <!-- Post Title Section -->
@@ -53,6 +54,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:padding="16dp" />
+
     </LinearLayout>
 
     <!-- Comments Section -->
@@ -75,7 +77,21 @@
 
     </ScrollView>
 
+
+
     <!-- Input Section -->
+
+    <Button
+        android:id="@+id/readAloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Read Aloud"
+        android:textColor="@android:color/white" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,6 +99,7 @@
         android:padding="8dp"
         android:background="@android:color/white"
         android:elevation="4dp">
+
 
         <!-- Comment Input -->
         <EditText
@@ -108,5 +125,6 @@
             app:tint="@color/colorPrimary"
             android:contentDescription="Submit Comment" />
     </LinearLayout>
+
 </LinearLayout>
 

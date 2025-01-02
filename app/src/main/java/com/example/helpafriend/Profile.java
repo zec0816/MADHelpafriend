@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import android.content.pm.PackageManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 public class Profile extends BaseActivity {
     private static final int CAMERA_REQUEST_CODE = 1001;
@@ -30,6 +33,8 @@ public class Profile extends BaseActivity {
 
     private ImageView profileImage;
     private EditText usernameEditText;
+
+    private boolean isReadingAloud = false;
     private ImageButton btnEditProfile, btnSettings, btnHelpSupport, btnDonate;
 
     private Uri currentPhotoUri;
@@ -38,6 +43,7 @@ public class Profile extends BaseActivity {
     private String currentUsername;
     private String currentRole;
 
+    private TextToSpeech tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +64,27 @@ public class Profile extends BaseActivity {
             return;
         }
 
+        Button readAloudButton = findViewById(R.id.TTSButton);
+        readAloudButton.setOnClickListener(view -> {
+            if (isReadingAloud) {
+                stopTTS(); // Stop TTS if already speaking
+            } else {
+                readAloudForumContent(); // Start reading aloud
+            }
+            isReadingAloud = !isReadingAloud; // Toggle the state
+        });
+
+        tts = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = tts.setLanguage(Locale.US);
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                }
+            } else {
+                Log.e("TTS", "Initialization failed");
+            }
+        });
+
         // Initialize views
         initializeViews();
 
@@ -68,6 +95,23 @@ public class Profile extends BaseActivity {
         setupClickListeners();
         setupBottomNavigation();
     }
+
+    private void readAloudForumContent() {
+        String forumContent = "Welcome to the Profile Page."; // Content to be spoken
+        if (tts != null) {
+            tts.speak(forumContent, TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            Log.e("TTS", "TTS is not initialized.");
+        }
+    }
+
+    private void stopTTS() {
+        if (tts != null && tts.isSpeaking()) {
+            tts.stop();
+            Log.d("TTS", "Text-to-Speech stopped");
+        }
+    }
+
 
     private void initializeViews() {
         profileImage = findViewById(R.id.profileImage);

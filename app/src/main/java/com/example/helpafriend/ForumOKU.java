@@ -5,16 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +22,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,7 +32,8 @@ public class ForumOKU extends BaseActivity {
     private LinearLayout postContainer;
     private Button createPostButton;
     private Set<String> loadedPostIds = new HashSet<>(); // Track unique post IDs to avoid duplicates
-
+    private TextToSpeech tts;
+    private boolean isReadingAloud = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +42,7 @@ public class ForumOKU extends BaseActivity {
         // Initialize UI elements
         postContainer = findViewById(R.id.postContainer);
         createPostButton = findViewById(R.id.createPostButton);
+        Button readAloudButton = findViewById(R.id.readAloudButton);
 
         // Set up the create post button
         createPostButton.setOnClickListener(view -> {
@@ -50,11 +50,63 @@ public class ForumOKU extends BaseActivity {
             startActivity(intent);
         });
 
+        // Read Aloud Button
+        tts = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                tts.setLanguage(Locale.US);
+            } else {
+                Log.e("TTS", "Initialization failed");
+            }
+        });
+
+        // Handle Read Aloud Button
+        readAloudButton.setOnClickListener(view -> {
+            if (isReadingAloud) {
+                stopTTS(); // Stop TTS if already speaking
+            } else {
+                readAloudForumContent(); // Start reading aloud
+            }
+            isReadingAloud = !isReadingAloud; // Toggle the state
+        });
+
         // Fetch posts for the first time
         fetchPosts();
 
         // Setup bottom navigation
         setupBottomNavigation();
+    }
+
+    private void readAloudForumContent() {
+        if (tts == null) {
+            Log.e("TTS", "TTS is not initialized");
+            return;
+        }
+
+        // Fetch the content to read aloud
+        StringBuilder forumContent = new StringBuilder("Welcome to the Forum Page. ");
+
+        // Loop through visible forum posts and concatenate text
+        for (int i = 0; i < postContainer.getChildCount(); i++) {
+            View postView = postContainer.getChildAt(i);
+            TextView titleView = postView.findViewById(R.id.postTitle);
+            TextView contentView = postView.findViewById(R.id.postContent);
+
+            if (titleView != null && contentView != null) {
+                forumContent.append("Title: ").append(titleView.getText().toString()).append(". ");
+                forumContent.append("Content: ").append(contentView.getText().toString()).append(". ");
+            }
+        }
+
+        // Read the content aloud
+        tts.speak(forumContent.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+    }
+
+    private void stopTTS() {
+        if (tts != null && tts.isSpeaking()) {
+            tts.stop();
+            isReadingAloud = false; // Ensure state is consistent
+            Log.d("TTS", "Text-to-Speech stopped");
+        }
     }
 
     private void fetchPosts() {
@@ -166,6 +218,15 @@ public class ForumOKU extends BaseActivity {
         } else {
             return R.id.nav_forum; // Correct ID for forum in OKU role
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 
 }

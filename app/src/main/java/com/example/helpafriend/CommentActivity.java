@@ -2,8 +2,10 @@ package com.example.helpafriend;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class CommentActivity extends AppCompatActivity {
@@ -31,6 +34,10 @@ public class CommentActivity extends AppCompatActivity {
     private TextView titleView;
     private String postId;
     private final String TAG = "CommentActivity";
+
+    private TextToSpeech tts;
+
+    private boolean isReadingAloud = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +52,34 @@ public class CommentActivity extends AppCompatActivity {
 
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
-
+            // Initialize Text-to-Speech
+        tts = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = tts.setLanguage(Locale.US);
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported or missing data.");
+                    Toast.makeText(this, "TTS language not supported", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Log.e("TTS", "Initialization failed.");
+                Toast.makeText(this, "TTS initialization failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Get post ID from Intent
         postId = getIntent().getStringExtra("postId");
-
         Log.d(TAG, "Post ID: " + postId);
+
+        // Read Aloud Button
+        Button readAloudButton = findViewById(R.id.readAloud);
+        readAloudButton.setOnClickListener(view -> {
+            if (isReadingAloud) {
+                stopTTS(); // Stop TTS if already speaking
+            } else {
+                readAloudForumContent(); // Start reading aloud
+            }
+            isReadingAloud = !isReadingAloud; // Toggle the state
+        });
 
         // Fetch post title and comments
         fetchPostDetailsAndComments();
@@ -65,6 +94,41 @@ public class CommentActivity extends AppCompatActivity {
                 submitCommentButton.setEnabled(false);
             }
         });
+    }
+
+    private void readAloudForumContent() {
+        StringBuilder forumContent = new StringBuilder();
+
+        // Say welcome message
+        forumContent.append("Welcome to the Comment Page. ");
+
+        // Add comments to the content
+        for (int i = 0; i < commentsContainer.getChildCount(); i++) {
+            View commentView = commentsContainer.getChildAt(i);
+            TextView usernameView = commentView.findViewById(R.id.commentUsername);
+            TextView contentView = commentView.findViewById(R.id.commentContent);
+
+            if (usernameView != null && contentView != null) {
+                forumContent.append("User ").append(usernameView.getText().toString()).append(" said ");
+                forumContent.append(contentView.getText().toString()).append(". ");
+            }
+        }
+
+        if (tts != null) {
+            if (forumContent.length() > 0) {
+                tts.speak(forumContent.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+            } else {
+                tts.speak("Welcome to the Comment Page. No comments available to read.", TextToSpeech.QUEUE_FLUSH, null, null);
+            }
+        }
+    }
+
+    private void stopTTS() {
+        if (tts != null && tts.isSpeaking()) {
+            tts.stop();
+            Log.d("TTS", "Text-to-Speech stopped");
+            Toast.makeText(this, "Text-to-Speech stopped", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void fetchPostDetailsAndComments() {
@@ -170,5 +234,15 @@ public class CommentActivity extends AppCompatActivity {
         commentDateView.setText(createdAt);
 
         commentsContainer.addView(commentView);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 }
