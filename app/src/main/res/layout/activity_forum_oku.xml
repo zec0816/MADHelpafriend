@@ -13,7 +13,6 @@
         android:gravity="center_vertical"
         android:padding="16dp">
 
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
@@ -46,16 +45,33 @@
             android:padding="16dp" />
     </ScrollView>
 
-    <!-- Button to create a new post -->
-    <Button
-        android:id="@+id/createPostButton"
-        android:layout_width="wrap_content"
+    <!-- Button Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Create Post"
-        android:textColorLink="@color/colorPrimary" />
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:padding="16dp">
+
+        <!-- Button to create a new post -->
+        <Button
+            android:id="@+id/createPostButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Create Post"
+            android:textColorLink="@color/colorPrimary" />
+
+        <!-- Button to read aloud -->
+        <Button
+            android:id="@+id/readAloudButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Read Aloud"
+            android:textColorLink="@color/colorPrimary" />
+    </LinearLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -74,4 +90,3 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 </LinearLayout>
-

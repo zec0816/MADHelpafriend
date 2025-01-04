@@ -26,7 +26,22 @@
         android:backgroundTint="#8A2BE2"
         android:elevation="4dp" />
 
+    <!-- Read Aloud Button -->
+
     <!-- Bottom Navigation View -->
+
+    <Button
+        android:id="@+id/TTSButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/google_map"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginBottom="3dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Read Aloud"
+        android:textColor="@android:color/white" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
