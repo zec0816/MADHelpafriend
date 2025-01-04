@@ -31,6 +31,11 @@
     <string name="dark_mode_enabled">Dark mode enabled</string>
     <string name="dark_mode_disabled">Dark mode disabled</string>
     <string name="change_successful">Changes saved successfully</string>
+    <string-array name="languages">
+        <item>English (US)</item>
+        <item>French</item>
+        <item>Spanish</item>
+    </string-array>
 
 
 </resources>

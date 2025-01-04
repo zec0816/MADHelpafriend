@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -41,6 +38,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class MapOKU extends BaseActivity {
@@ -52,7 +50,9 @@ public class MapOKU extends BaseActivity {
     private Button acceptedRequestsButton;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final LatLng DEFAULT_LOCATION = new LatLng(3.1219267, 101.6569933);
+    private TextToSpeech tts;
 
+    private boolean isReadingAloud = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,44 @@ public class MapOKU extends BaseActivity {
         } else {
             // Request permission if not granted
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }
+
+        Button readAloudButton = findViewById(R.id.TTSButton);
+        readAloudButton.setOnClickListener(view -> {
+            if (isReadingAloud) {
+                stopTTS(); // Stop TTS if already speaking
+            } else {
+                readAloudForumContent(); // Start reading aloud
+            }
+            isReadingAloud = !isReadingAloud; // Toggle the state
+        });
+
+        tts = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = tts.setLanguage(Locale.US);
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                }
+            } else {
+                Log.e("TTS", "Initialization failed");
+            }
+        });
+
+    }
+
+    private void readAloudForumContent() {
+        String forumContent = "Welcome to the Map Page."; // Content to be spoken
+        if (tts != null) {
+            tts.speak(forumContent, TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            Log.e("TTS", "TTS is not initialized.");
+        }
+    }
+
+    private void stopTTS() {
+        if (tts != null && tts.isSpeaking()) {
+            tts.stop();
+            Log.d("TTS", "Text-to-Speech stopped");
         }
     }
 
@@ -272,4 +310,15 @@ public class MapOKU extends BaseActivity {
             return R.id.nav_activity; // Correct ID for Emergency Hotline in OKU role
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
+    }
+
 }
