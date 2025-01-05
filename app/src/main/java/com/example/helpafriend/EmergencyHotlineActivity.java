@@ -1,16 +1,26 @@
 package com.example.helpafriend;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
+
+import java.util.Locale;
+
+
 public class EmergencyHotlineActivity extends BaseActivity {
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_hotline);
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String localeCode = sharedPreferences.getString("appLocale", "en");
 
         // Set up BottomNavigationView
         setupBottomNavigation();
@@ -46,6 +56,20 @@ public class EmergencyHotlineActivity extends BaseActivity {
             Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + hotlineNumber4));
             startActivity(callIntent);
         });
+
+        applySelectedLanguage();
+    }
+
+    private void applySelectedLanguage() {
+        String savedLocale = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                .getString("appLocale", "en");
+        Locale locale = new Locale(savedLocale);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 
     @Override

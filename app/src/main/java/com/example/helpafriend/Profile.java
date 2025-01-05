@@ -3,6 +3,7 @@ package com.example.helpafriend;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.content.pm.PackageManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 public class Profile extends BaseActivity {
     private static final int CAMERA_REQUEST_CODE = 1001;
@@ -45,6 +47,7 @@ public class Profile extends BaseActivity {
 
         // Initialize preferences
         preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String Locale = preferences.getString("appLocale", "en");
 
         // Get current user information from SharedPreferences
         currentUsername = preferences.getString("username", null);
@@ -67,7 +70,22 @@ public class Profile extends BaseActivity {
         // Set up click listeners
         setupClickListeners();
         setupBottomNavigation();
+        applySelectedLanguage();
     }
+
+    private void applySelectedLanguage() {
+        String savedLocale = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getString("appLocale", "en");
+        Locale locale = new Locale(savedLocale);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+    }
+
+
 
     private void initializeViews() {
         profileImage = findViewById(R.id.profileImage);
@@ -164,9 +182,9 @@ public class Profile extends BaseActivity {
         EditText passwordEditText = dialogView.findViewById(R.id.passwordEditText);
 
         builder.setView(dialogView)
-                .setTitle("Verify Password")
-                .setPositiveButton("Verify", null)
-                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                .setTitle(getString(R.string.verify_password_title)) // Use string resource for title
+                .setPositiveButton(getString(R.string.verify_button), null) // Use string resource for "Verify"
+                .setNegativeButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss()); // Use string resource for "Cancel"
 
         AlertDialog dialog = builder.create();
         passwordEditText.requestFocus();
@@ -176,7 +194,7 @@ public class Profile extends BaseActivity {
             button.setOnClickListener(view -> {
                 String password = passwordEditText.getText().toString().trim();
                 if (password.isEmpty()) {
-                    passwordEditText.setError("Password is required");
+                    passwordEditText.setError(getString(R.string.password_required_error)); // Use string resource for error message
                     return;
                 }
                 verifyPassword(password, dialog);
@@ -185,6 +203,7 @@ public class Profile extends BaseActivity {
 
         dialog.show();
     }
+
 
     private void verifyPassword(String password, Dialog dialog) {
         String storedPassword = preferences.getString("password", "");

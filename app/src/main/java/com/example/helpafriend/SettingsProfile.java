@@ -25,6 +25,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Locale;
+import android.content.res.Configuration;
 
 public class SettingsProfile extends AppCompatActivity {
     private Switch darkModeSwitch;
@@ -133,12 +135,42 @@ public class SettingsProfile extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.select_language))
                 .setSingleChoiceItems(languages, checkedItem, (dialog, which) -> {
-                    setLocale(localeCodes[which]);
+                    String selectedLocale = localeCodes[which];
+
+                    if (!selectedLocale.equals(currentLocale)) {
+                        // Save the selected locale
+                        editor.putString("appLocale", selectedLocale);
+                        editor.apply();
+
+                        // Apply the new locale and recreate the activity
+                        applyLocale(selectedLocale);
+                        recreate();
+                    }
+
                     dialog.dismiss();
                 })
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss())
                 .show();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Profile.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void applyLocale(String localeCode) {
+        Locale locale = new Locale(localeCode);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
+    }
+
+
 
     private void showFontSizeSelectionDialog() {
         String[] fontSizes = {

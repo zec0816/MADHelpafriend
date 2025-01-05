@@ -21,7 +21,7 @@
             android:gravity="center"
             android:paddingTop="50dp"
             android:paddingBottom="20dp"
-            android:text="Forum Page"
+            android:text="@string/forum_page"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -54,7 +54,7 @@
         android:layout_gravity="end"
         android:layout_margin="16dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Create Post"
+        android:text="@string/create_a_post"
         android:textColorLink="@color/colorPrimary" />
 
     <!-- Bottom Navigation -->

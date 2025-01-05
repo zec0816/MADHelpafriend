@@ -8,6 +8,7 @@
     android:background="#FFFFFF"
     tools:context=".DonateProfile">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back"
             android:padding="8dp"
             android:src="@drawable/icon_back"
             app:tint="@android:color/white" />
@@ -34,20 +35,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-
+    <!-- Donate Title -->
     <TextView
         android:id="@+id/tvDonateTitle"
         android:layout_width="261dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Donate"
+        android:text="@string/donate"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,18 +56,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Donation Amount Label -->
+    <TextView
+        android:id="@+id/tvDonationAmountLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/enter_donation_amount"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDonateTitle" />
+
+    <!-- Donation Amount Input -->
     <EditText
         android:id="@+id/etDonationAmount"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:hint="e.g., 50.00"
+        android:hint="@string/example_donation_amount"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDonationAmountLabel" />
 
+    <!-- Payment Method Label -->
+    <TextView
+        android:id="@+id/tvPaymentMethodLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/select_payment_method"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDonationAmount" />
+
+    <!-- Payment Method Spinner -->
     <Spinner
         android:id="@+id/spPaymentMethod"
         android:layout_width="350dp"
@@ -76,48 +103,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPaymentMethodLabel" />
 
-    <TextView
-        android:id="@+id/tvDonationAmountLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="36dp"
-        android:text="Enter Donation Amount:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDonateTitle" />
-
+    <!-- Donate Button -->
     <Button
         android:id="@+id/btnDonate"
         android:layout_width="250dp"
         android:layout_height="53dp"
         android:layout_marginTop="20dp"
-        android:text="Donate Now"
+        android:text="@string/donate_now"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spPaymentMethod" />
 
+    <!-- Cancel Button -->
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="250dp"
         android:layout_height="53dp"
         android:layout_marginTop="16dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnDonate" />
-
-    <TextView
-        android:id="@+id/tvPaymentMethodLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:text="Select Payment Method:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDonationAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
