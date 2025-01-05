@@ -13,6 +13,7 @@
         android:gravity="center_vertical"
         android:padding="16dp">
 
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:gravity="center"
             android:paddingTop="50dp"
             android:paddingBottom="20dp"
-            android:text="Forum Page"
+            android:text="@string/forum_page"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -45,6 +46,7 @@
             android:padding="16dp" />
     </ScrollView>
 
+    <!-- Button to create a new post -->
     <!-- Button Section -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,16 +55,19 @@
         android:gravity="end"
         android:padding="16dp">
 
-        <!-- Button to create a new post -->
+
+        <!-- Button to read aloud -->
+
         <Button
             android:id="@+id/createPostButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Create Post"
+            android:text="@string/create_a_post"
             android:textColorLink="@color/colorPrimary" />
 
-        <!-- Button to read aloud -->
         <ImageButton
             android:id="@+id/readAloud"
             android:layout_width="53dp"
@@ -93,3 +98,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 </LinearLayout>
+

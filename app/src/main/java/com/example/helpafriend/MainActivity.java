@@ -3,7 +3,7 @@ package com.example.helpafriend;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import android.speech.SpeechRecognizer;
@@ -85,14 +85,28 @@ public class MainActivity extends BaseActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "User"); // Default is "User" if not found
 
-        // Display the username
-        welcomeText.setText("WELCOME, " + username);
+        // Use the string resource for the welcome message
+        String welcomeMessage = getString(R.string.welcome) + ", " + username;
+        welcomeText.setText(welcomeMessage);
 
         // Fetch and display the two most recent posts
         fetchRecentPosts();
 
         // Set up the bottom navigation
         setupBottomNavigation();
+        applySelectedLanguage();
+    }
+
+    private void applySelectedLanguage() {
+        String savedLocale = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                .getString("appLocale", "en");
+        Locale locale = new Locale(savedLocale);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 
     private void readAloudForumContent() {

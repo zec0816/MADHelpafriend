@@ -9,6 +9,7 @@
     <color name="colorPrimaryDark">#6F1EB6</color>
     <color name="textPrimary">#4A4A4A</color>
     <color name="textSecondary">#BDBDBD</color>
+    <color name="gray_light">#999999</color>
 
 
 </resources>

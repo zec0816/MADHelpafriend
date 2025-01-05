@@ -1,12 +1,15 @@
 package com.example.helpafriend;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Locale;
 
 public class HelpSupportProfile extends AppCompatActivity {
 
@@ -23,6 +26,18 @@ public class HelpSupportProfile extends AppCompatActivity {
 
         backButton.setOnClickListener(view -> finish());
         btnContactSupport.setOnClickListener(view -> openGmail());
+        applySelectedLanguage();
+    }
+    private void applySelectedLanguage() {
+        String savedLocale = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                .getString("appLocale", "en");
+        Locale locale = new Locale(savedLocale);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 
     private void openGmail() {

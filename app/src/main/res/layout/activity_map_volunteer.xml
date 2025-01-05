@@ -22,7 +22,7 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
         android:backgroundTint="#8A2BE2"
-        android:text="Pending Requests"
+        android:text="@string/pending_requests"
         android:textColor="@android:color/white" />
 
     <!-- Bottom Navigation View -->

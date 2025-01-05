@@ -296,7 +296,7 @@
         android:gravity="center"
         android:paddingTop="50dp"
         android:paddingBottom="20dp"
-        android:text="EMERGENCY HOTLINE"
+        android:text="@string/emergency_hotline"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
