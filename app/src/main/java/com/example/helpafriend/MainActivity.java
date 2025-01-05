@@ -3,6 +3,7 @@ package com.example.helpafriend;
 
 import android.content.SharedPreferences;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.speech.SpeechRecognizer;
@@ -10,6 +11,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +38,11 @@ public class MainActivity extends BaseActivity {
 
     private TextToSpeech tts;
 
+    private SharedPreferences sharedPreferences;
+    private ImageView profileImageView;
+    private String username;
+
+
     private static final String TAG = "MainActivity";
 
 
@@ -44,10 +51,18 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", null);
+
         // Initialize UI components
+        profileImageView = findViewById(R.id.profileImage);
         recentPostsRecyclerView = findViewById(R.id.recentPostsRecyclerView);
         welcomeText = findViewById(R.id.welcomeText); // Get Welcome TextView
         emptyStateText = findViewById(R.id.emptyStateText);
+
+        // Load the profile image
+        loadProfileImage();
 
         // Set up RecyclerView
         recentPostsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -84,6 +99,28 @@ public class MainActivity extends BaseActivity {
         // Set up the bottom navigation
         setupBottomNavigation();
     }
+
+    private void loadProfileImage() {
+        // Retrieve the URI from SharedPreferences
+        String profileImageUri = sharedPreferences.getString("profile_image_uri_" + username, null);
+
+        if (profileImageUri != null) {
+            try {
+                Uri imageUri = Uri.parse(profileImageUri);
+                profileImageView.setImageURI(imageUri);
+            } catch (Exception e) {
+                e.printStackTrace();
+                setDefaultProfileImage();
+            }
+        } else {
+            setDefaultProfileImage();
+        }
+    }
+
+    private void setDefaultProfileImage() {
+        profileImageView.setImageResource(R.drawable.ic_profile); // Set a default placeholder image
+    }
+
 
     private void readAloudForumContent() {
         String forumContent = "Welcome to the Main Page."; // Replace with actual content
