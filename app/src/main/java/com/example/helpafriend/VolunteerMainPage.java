@@ -2,8 +2,10 @@ package com.example.helpafriend;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ public class VolunteerMainPage extends BaseActivity {
     private RecyclerView helpHistoryRecyclerView;
     private HelpHistoryAdapter helpHistoryAdapter;
     private List<HelpHistory> helpHistoryList;
+    private SharedPreferences sharedPreferences;
+    private ImageView profileImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +41,24 @@ public class VolunteerMainPage extends BaseActivity {
         setContentView(R.layout.activity_volunteer_main_page);
 
         // Initialize UI components
+        profileImageView = findViewById(R.id.profileImage);
         usernameTextView = findViewById(R.id.usernameTextView);
         totalPointsTextView = findViewById(R.id.pointsTextView);
         helpHistoryRecyclerView = findViewById(R.id.help_history_recyclerview);
 
         helpHistoryList = new ArrayList<>();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", null);
 
         if (username == null || username.isEmpty()) {
             startActivity(new Intent(VolunteerMainPage.this, Login.class));
             finish();
         }
+
+        // Load the profile image
+        loadProfileImage();
 
         usernameTextView.setText("Welcome, " + username);
 
@@ -59,6 +68,28 @@ public class VolunteerMainPage extends BaseActivity {
 
         setupBottomNavigation();
     }
+
+    private void loadProfileImage() {
+        // Retrieve the URI from SharedPreferences
+        String profileImageUri = sharedPreferences.getString("profile_image_uri_" + username, null);
+
+        if (profileImageUri != null) {
+            try {
+                Uri imageUri = Uri.parse(profileImageUri);
+                profileImageView.setImageURI(imageUri);
+            } catch (Exception e) {
+                e.printStackTrace();
+                setDefaultProfileImage();
+            }
+        } else {
+            setDefaultProfileImage();
+        }
+    }
+
+    private void setDefaultProfileImage() {
+        profileImageView.setImageResource(R.drawable.ic_profile); // Set a default placeholder image
+    }
+
 
     private void fetchHelpHistory(String username) {
         // Replace with the actual URL for fetching help history
