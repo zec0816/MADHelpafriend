@@ -20,8 +20,7 @@ public class EmergencyHotlineActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_hotline);
         sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        String localeCode = sharedPreferences.getString("appLocale", "en");
-
+        
         // Set up BottomNavigationView
         setupBottomNavigation();
 
