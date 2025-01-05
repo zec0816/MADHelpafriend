@@ -63,14 +63,17 @@
             android:textColorLink="@color/colorPrimary" />
 
         <!-- Button to read aloud -->
-        <Button
-            android:id="@+id/readAloudButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:backgroundTint="@color/colorPrimary"
+        <ImageButton
+            android:id="@+id/readAloud"
+            android:layout_width="53dp"
+            android:layout_height="61dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mic_icon"
             android:text="Read Aloud"
-            android:textColorLink="@color/colorPrimary" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <!-- Bottom Navigation -->

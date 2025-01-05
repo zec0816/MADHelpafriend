@@ -64,7 +64,7 @@ public class Profile extends BaseActivity {
             return;
         }
 
-        Button readAloudButton = findViewById(R.id.TTSButton);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
                 stopTTS(); // Stop TTS if already speaking
