@@ -1,22 +1,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/volunteer_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/nav_home" />
+
     <item
         android:id="@+id/volunteer_forum"
         android:icon="@drawable/ic_forum"
-        android:title="Forum" />
+        android:title="@string/nav_forum" />
+
     <item
         android:id="@+id/volunteer_activity"
         android:icon="@drawable/ic_activity"
-        android:title="Activity" />
+        android:title="@string/nav_activity" />
+
     <item
         android:id="@+id/volunteer_leaderboard"
         android:icon="@drawable/ic_leaderboard"
-        android:title="Leaderboard" />
+        android:title="@string/leaderboard" />
+
     <item
         android:id="@+id/volunteer_profile"
         android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:title="@string/nav_profile" />
 </menu>
