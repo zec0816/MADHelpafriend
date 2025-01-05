@@ -87,6 +87,11 @@
 
 
 
+    <string-array name="languages">
+        <item>English (US)</item>
+        <item>French</item>
+        <item>Spanish</item>
+    </string-array>
 
 
 </resources>

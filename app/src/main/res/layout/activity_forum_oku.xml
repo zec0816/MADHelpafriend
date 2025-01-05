@@ -56,6 +56,25 @@
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/create_a_post"
         android:textColorLink="@color/colorPrimary" />
+    <!-- Button Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:padding="16dp">
+
+
+        <!-- Button to read aloud -->
+        <Button
+            android:id="@+id/readAloudButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Read Aloud"
+            android:textColorLink="@color/colorPrimary" />
+    </LinearLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

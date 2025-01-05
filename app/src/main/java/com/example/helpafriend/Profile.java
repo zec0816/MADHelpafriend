@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +34,8 @@ public class Profile extends BaseActivity {
 
     private ImageView profileImage;
     private EditText usernameEditText;
+
+    private boolean isReadingAloud = false;
     private ImageButton btnEditProfile, btnSettings, btnHelpSupport, btnDonate;
 
     private Uri currentPhotoUri;
@@ -40,6 +44,7 @@ public class Profile extends BaseActivity {
     private String currentUsername;
     private String currentRole;
 
+    private TextToSpeech tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +65,8 @@ public class Profile extends BaseActivity {
             finish();
             return;
         }
+
+
 
         // Initialize views
         initializeViews();
@@ -85,6 +92,23 @@ public class Profile extends BaseActivity {
                 getBaseContext().getResources().getDisplayMetrics());
     }
 
+
+
+    private void readAloudForumContent() {
+        String forumContent = "Welcome to the Profile Page."; // Content to be spoken
+        if (tts != null) {
+            tts.speak(forumContent, TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            Log.e("TTS", "TTS is not initialized.");
+        }
+    }
+
+    private void stopTTS() {
+        if (tts != null && tts.isSpeaking()) {
+            tts.stop();
+            Log.d("TTS", "Text-to-Speech stopped");
+        }
+    }
 
 
     private void initializeViews() {
@@ -203,7 +227,6 @@ public class Profile extends BaseActivity {
 
         dialog.show();
     }
-
 
     private void verifyPassword(String password, Dialog dialog) {
         String storedPassword = preferences.getString("password", "");

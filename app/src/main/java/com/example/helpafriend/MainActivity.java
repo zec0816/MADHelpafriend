@@ -3,8 +3,12 @@ package com.example.helpafriend;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+
+import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,10 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +32,11 @@ public class MainActivity extends BaseActivity {
     private TextView emptyStateText;
     private RecentPostsAdapter postAdapter;
     private List<Post> postList;
+
+    private TextToSpeech tts;
+
+    private static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,22 @@ public class MainActivity extends BaseActivity {
         postList = new ArrayList<>();
         postAdapter = new RecentPostsAdapter(postList);
         recentPostsRecyclerView.setAdapter(postAdapter);
+        Button readAloudButton = findViewById(R.id.readAloudButton);
+
+        // Initialize Text-to-Speech
+        tts = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = tts.setLanguage(Locale.US);
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported or missing data.");
+                }
+            } else {
+                Log.e("TTS", "Initialization failed.");
+            }
+        });
+
+        // Set up Read Aloud Button click event
+        readAloudButton.setOnClickListener(view -> readAloudForumContent());
 
         // Retrieve username from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
@@ -73,6 +96,15 @@ public class MainActivity extends BaseActivity {
         config.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    private void readAloudForumContent() {
+        String forumContent = "Welcome to the Main Page."; // Replace with actual content
+        if (tts != null) {
+            tts.speak(forumContent, TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            Log.e("TTS", "TTS is not initialized.");
+        }
     }
 
     private void fetchRecentPosts() {
@@ -123,6 +155,15 @@ public class MainActivity extends BaseActivity {
         } else {
             return R.id.nav_home; // Correct ID for forum in OKU role
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 
 }

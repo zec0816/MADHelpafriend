@@ -15,4 +15,8 @@ public class Db_Contract {
     public static final String urlGetLeaderboard = "http://" + ip + "/helpafriend/get_leaderboard.php";
     public static final String urlUpdateProfile = "http://" + ip + "/helpafriend/updateProfile.php";
     public static final String urlDeleteProfile = "http://" + ip + "/helpafriend/deleteProfile.php";
+    public static final String urlFetchUserPoints = "http://" + ip + "/helpafriend/fetch_user_points.php";
+    public static final String urlFetchHelpHistory = "http://" + ip + "/helpafriend/fetch_help_history.php";
+    public static final String urlGetComment = "http://"+ip+"/helpafriend/get_comment.php";
+    public static final String urlSubmitComment = "http://"+ip+"/helpafriend/submit_comment.php";
 }
