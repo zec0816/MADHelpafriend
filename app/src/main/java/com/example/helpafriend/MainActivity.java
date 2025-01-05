@@ -1,5 +1,7 @@
 package com.example.helpafriend;
 
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,7 +56,15 @@ public class MainActivity extends BaseActivity {
         postList = new ArrayList<>();
         postAdapter = new RecentPostsAdapter(postList);
         recentPostsRecyclerView.setAdapter(postAdapter);
-        Button readAloudButton = findViewById(R.id.readAloudButton);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
+        Button requestHelpButton = findViewById(R.id.requestHelpButton);
+
+        // Set up the create post button
+        requestHelpButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MapOKU.class);
+            startActivity(intent);
+        });
+
 
         // Initialize Text-to-Speech
         tts = new TextToSpeech(this, status -> {

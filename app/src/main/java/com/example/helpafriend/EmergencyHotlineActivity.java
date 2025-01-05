@@ -49,7 +49,7 @@ public class EmergencyHotlineActivity extends BaseActivity {
         });
 
         // Read Aloud Button
-        Button readAloudButton = findViewById(R.id.TTSButton);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
                 stopTTS(); // Stop TTS if already speaking

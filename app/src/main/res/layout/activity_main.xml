@@ -94,16 +94,17 @@
 
     <!-- Bottom Navigation -->
 
-    <Button
-        android:id="@+id/readAloudButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="#8A2BE2"
+    <ImageButton
+        android:id="@+id/readAloud"
+        android:layout_width="53dp"
+        android:layout_height="61dp"
+        android:layout_gravity="right"
+        android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mic_icon"
         android:text="Read Aloud"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.button.MaterialButton

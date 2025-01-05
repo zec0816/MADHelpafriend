@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,7 +77,7 @@ public class MapOKU extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
 
-        Button readAloudButton = findViewById(R.id.TTSButton);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
                 stopTTS(); // Stop TTS if already speaking

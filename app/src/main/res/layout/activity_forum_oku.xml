@@ -47,15 +47,6 @@
     </ScrollView>
 
     <!-- Button to create a new post -->
-    <Button
-        android:id="@+id/createPostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="@string/create_a_post"
-        android:textColorLink="@color/colorPrimary" />
     <!-- Button Section -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,14 +57,28 @@
 
 
         <!-- Button to read aloud -->
+
         <Button
-            android:id="@+id/readAloudButton"
+            android:id="@+id/createPostButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Read Aloud"
+            android:text="@string/create_a_post"
             android:textColorLink="@color/colorPrimary" />
+
+        <ImageButton
+            android:id="@+id/readAloud"
+            android:layout_width="53dp"
+            android:layout_height="61dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mic_icon"
+            android:text="Read Aloud"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <!-- Bottom Navigation -->

@@ -52,7 +52,6 @@ public class Profile extends BaseActivity {
 
         // Initialize preferences
         preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String Locale = preferences.getString("appLocale", "en");
 
         // Get current user information from SharedPreferences
         currentUsername = preferences.getString("username", null);
@@ -66,7 +65,26 @@ public class Profile extends BaseActivity {
             return;
         }
 
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
+        readAloudButton.setOnClickListener(view -> {
+            if (isReadingAloud) {
+                stopTTS(); // Stop TTS if already speaking
+            } else {
+                readAloudForumContent(); // Start reading aloud
+            }
+            isReadingAloud = !isReadingAloud; // Toggle the state
+        });
 
+        tts = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = tts.setLanguage(Locale.US);
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported");
+                }
+            } else {
+                Log.e("TTS", "Initialization failed");
+            }
+        });
 
         // Initialize views
         initializeViews();
@@ -91,7 +109,6 @@ public class Profile extends BaseActivity {
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
     }
-
 
 
     private void readAloudForumContent() {
@@ -206,9 +223,9 @@ public class Profile extends BaseActivity {
         EditText passwordEditText = dialogView.findViewById(R.id.passwordEditText);
 
         builder.setView(dialogView)
-                .setTitle(getString(R.string.verify_password_title)) // Use string resource for title
-                .setPositiveButton(getString(R.string.verify_button), null) // Use string resource for "Verify"
-                .setNegativeButton(getString(R.string.cancel_button), (dialog, which) -> dialog.dismiss()); // Use string resource for "Cancel"
+                .setTitle("Verify Password")
+                .setPositiveButton("Verify", null)
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         passwordEditText.requestFocus();
@@ -218,7 +235,7 @@ public class Profile extends BaseActivity {
             button.setOnClickListener(view -> {
                 String password = passwordEditText.getText().toString().trim();
                 if (password.isEmpty()) {
-                    passwordEditText.setError(getString(R.string.password_required_error)); // Use string resource for error message
+                    passwordEditText.setError("Password is required");
                     return;
                 }
                 verifyPassword(password, dialog);
