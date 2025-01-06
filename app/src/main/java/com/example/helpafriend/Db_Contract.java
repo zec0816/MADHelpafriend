@@ -18,4 +18,6 @@ public class Db_Contract {
     public static final String urlFetchHelpHistory = "http://" + ip + "/helpafriend/fetch_help_history.php";
     public static final String urlGetComment = "http://"+ip+"/helpafriend/get_comment.php";
     public static final String urlSubmitComment = "http://"+ip+"/helpafriend/submit_comment.php";
+
+    public static final String urlLikes = "http://"+ip+"/helpafriend/likes.php";
 }
