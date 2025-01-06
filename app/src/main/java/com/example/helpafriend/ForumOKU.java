@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +47,7 @@ public class ForumOKU extends BaseActivity {
         // Initialize UI elements
         postContainer = findViewById(R.id.postContainer);
         createPostButton = findViewById(R.id.createPostButton);
-        Button readAloudButton = findViewById(R.id.readAloudButton);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
 
         // Set up the create post button
         createPostButton.setOnClickListener(view -> {
@@ -149,8 +154,10 @@ public class ForumOKU extends BaseActivity {
                             String content = post.optString("content", "No Content");
                             String createdAt = post.optString("created_at", "Unknown Date");
                             int likeCount = post.optInt("like_count", 0);
+                            boolean isLiked = post.optBoolean("is_liked", false); // Fetch liked state
+                            Log.d("ForumOKU", "Post ID: " + postId + ", isLiked: " + isLiked);
                             // Add post to UI
-                            addPostToContainer(postId, title, content, createdAt, likeCount);
+                            addPostToContainer(postId, title, content, createdAt, likeCount, isLiked);
                             loadedPostIds.add(postId); // Track loaded post ID
                         }
                     }
@@ -161,7 +168,7 @@ public class ForumOKU extends BaseActivity {
         });
     }
 
-    private void addPostToContainer(String postId, String title, String content, String createdAt, int likeCount) {
+    private void addPostToContainer(String postId, String title, String content, String createdAt, int likeCount, boolean isLiked) {
         View postView = getLayoutInflater().inflate(R.layout.activity_post_layout, postContainer, false);
 
         // Bind views
@@ -175,8 +182,6 @@ public class ForumOKU extends BaseActivity {
         titleView.setText(title);
         contentView.setText(content);
         dateView.setText(createdAt);
-        likeCountView.setText(String.format("%d Likes", likeCount));
-
         // Set up comment button
         commentButton.setOnClickListener(view -> {
             Intent intent = new Intent(ForumOKU.this, CommentActivity.class);
@@ -184,19 +189,70 @@ public class ForumOKU extends BaseActivity {
             startActivity(intent);
         });
 
-        // Handle love button functionality
-        final boolean[] isLoved = {false}; // Track love state for this post
+        likeCountView.setText(String.format("%d Likes", likeCount));
+        loveButton.setImageResource(isLiked ? R.drawable.icon_heart_filled : R.drawable.icon_heart_unfilled);
+
+        loveButton.setTag(isLiked); // Store the current state in the button's tag
+
         loveButton.setOnClickListener(view -> {
-            if (!isLoved[0]) {
-                loveButton.setImageResource(R.drawable.icon_heart_filled);
-                isLoved[0] = true;
-            } else {
-                loveButton.setImageResource(R.drawable.icon_heart_unfilled);
-                isLoved[0] = false;
-            }
+            boolean currentState = (boolean) loveButton.getTag(); // Get the current state
+            loveButton.setEnabled(false); // Disable the button during the request
+            updateLikeState(postId, !currentState, likeCountView, loveButton); // Toggle the state
         });
 
+
         postContainer.addView(postView);
+    }
+
+    private void updateLikeState(String postId, boolean isLiked, TextView likeCountView, ImageButton loveButton) {
+        String action = isLiked ? "like" : "unlike";
+        JSONObject requestParams = new JSONObject();
+        try {
+            requestParams.put("post_id", postId);
+            requestParams.put("user_id", "2"); // Replace with the actual logged-in user's ID
+            requestParams.put("action", action);
+
+            Log.d("ForumOKU", "Request Params: " + requestParams.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            loveButton.setEnabled(true); // Re-enable the button on error
+            return;
+        }
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                Db_Contract.urlLikes,
+                requestParams,
+                response -> {
+                    try {
+                        if (response.has("status") && (response.getString("status").equals("liked") || response.getString("status").equals("unliked"))) {
+                            // Update the like count
+                            int updatedLikeCount = response.getInt("like_count");
+                            likeCountView.setText(String.format("%d Likes", updatedLikeCount));
+
+                            // Update the icon and tag based on the response
+                            loveButton.setImageResource(isLiked ? R.drawable.icon_heart_filled : R.drawable.icon_heart_unfilled);
+                            loveButton.setTag(isLiked); // Update the tag to the new state
+                        } else {
+                            // Show error message if the action is invalid
+                            String message = response.has("message") ? response.getString("message") : "Action failed.";
+                            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        Log.e("ForumOKU", "Error parsing response: " + e.getMessage());
+                    } finally {
+                        loveButton.setEnabled(true); // Re-enable the button
+                    }
+                },
+                error -> {
+                    // Handle network or server errors
+                    Log.e("ForumOKU", "Error updating like state: " + error.getMessage());
+                    Toast.makeText(ForumOKU.this, "Failed to update like state. Please try again.", Toast.LENGTH_SHORT).show();
+                    loveButton.setEnabled(true); // Re-enable the button
+                }
+        );
+
+        Volley.newRequestQueue(this).add(jsonRequest);
     }
 
     @Override

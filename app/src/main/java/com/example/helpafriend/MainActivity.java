@@ -1,9 +1,9 @@
 package com.example.helpafriend;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
-
-import android.net.Uri;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import android.speech.SpeechRecognizer;
@@ -11,7 +11,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,11 +38,6 @@ public class MainActivity extends BaseActivity {
 
     private TextToSpeech tts;
 
-    private SharedPreferences sharedPreferences;
-    private ImageView profileImageView;
-    private String username;
-
-
     private static final String TAG = "MainActivity";
 
 
@@ -51,25 +46,25 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        username = sharedPreferences.getString("username", null);
-
         // Initialize UI components
-        profileImageView = findViewById(R.id.profileImage);
         recentPostsRecyclerView = findViewById(R.id.recentPostsRecyclerView);
         welcomeText = findViewById(R.id.welcomeText); // Get Welcome TextView
         emptyStateText = findViewById(R.id.emptyStateText);
-
-        // Load the profile image
-        loadProfileImage();
 
         // Set up RecyclerView
         recentPostsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         postList = new ArrayList<>();
         postAdapter = new RecentPostsAdapter(postList);
         recentPostsRecyclerView.setAdapter(postAdapter);
-        Button readAloudButton = findViewById(R.id.readAloudButton);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
+        Button requestHelpButton = findViewById(R.id.requestHelpButton);
+
+        // Set up the create post button
+        requestHelpButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MapOKU.class);
+            startActivity(intent);
+        });
+
 
         // Initialize Text-to-Speech
         tts = new TextToSpeech(this, status -> {
@@ -90,37 +85,29 @@ public class MainActivity extends BaseActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "User"); // Default is "User" if not found
 
-        // Display the username
-        welcomeText.setText("WELCOME, " + username);
+        // Use the string resource for the welcome message
+        String welcomeMessage = getString(R.string.welcome) + ", " + username;
+        welcomeText.setText(welcomeMessage);
 
         // Fetch and display the two most recent posts
         fetchRecentPosts();
 
         // Set up the bottom navigation
         setupBottomNavigation();
+        applySelectedLanguage();
     }
 
-    private void loadProfileImage() {
-        // Retrieve the URI from SharedPreferences
-        String profileImageUri = sharedPreferences.getString("profile_image_uri_" + username, null);
+    private void applySelectedLanguage() {
+        String savedLocale = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                .getString("appLocale", "en");
+        Locale locale = new Locale(savedLocale);
+        Locale.setDefault(locale);
 
-        if (profileImageUri != null) {
-            try {
-                Uri imageUri = Uri.parse(profileImageUri);
-                profileImageView.setImageURI(imageUri);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultProfileImage();
-            }
-        } else {
-            setDefaultProfileImage();
-        }
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
-
-    private void setDefaultProfileImage() {
-        profileImageView.setImageResource(R.drawable.ic_profile); // Set a default placeholder image
-    }
-
 
     private void readAloudForumContent() {
         String forumContent = "Welcome to the Main Page."; // Replace with actual content

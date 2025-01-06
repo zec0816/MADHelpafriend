@@ -8,6 +8,7 @@
     android:background="#FFFFFF"
     tools:context=".HelpSupportProfile">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back"
             android:padding="8dp"
             android:src="@drawable/icon_back"
             app:tint="@android:color/white" />
@@ -32,17 +33,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Help And Support"
+            android:text="@string/help_and_support"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
+    <!-- FAQ Title -->
     <TextView
         android:id="@+id/tvFAQTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Frequently Asked Questions"
+        android:text="@string/frequently_asked_question"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -51,6 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- FAQ Scrollable Content -->
     <ScrollView
         android:id="@+id/scrollFAQ"
         android:layout_width="0dp"
@@ -67,11 +70,12 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- FAQ 1 -->
             <TextView
                 android:id="@+id/tvQuestion1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Q: How can I create an account?"
+                android:text="@string/faq_create_account_question"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:padding="8dp" />
@@ -80,7 +84,7 @@
                 android:id="@+id/tvAnswer1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="A: You can create an account by clicking the 'Sign Up' button on the login screen and filling in the required details."
+                android:text="@string/faq_create_account_answer"
                 android:textSize="14sp"
                 android:paddingStart="8dp"
                 android:paddingBottom="8dp" />
@@ -91,20 +95,21 @@
                 android:background="#E0E0E0"
                 android:layout_marginBottom="8dp" />
 
+            <!-- FAQ 2 -->
             <TextView
-                android:id="@+id/tvQuestion5"
+                android:id="@+id/tvQuestion2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Q: How can I change my username?"
+                android:text="@string/faq_change_username_question"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:padding="8dp" />
 
             <TextView
-                android:id="@+id/tvAnswer5"
+                android:id="@+id/tvAnswer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="A: To change your username, navigate to the 'Settings' page, select 'Edit Profile,' and update your username. Save the changes to confirm."
+                android:text="@string/faq_change_username_answer"
                 android:textSize="14sp"
                 android:paddingStart="8dp"
                 android:paddingBottom="8dp" />
@@ -115,58 +120,58 @@
                 android:background="#E0E0E0"
                 android:layout_marginBottom="8dp" />
 
-            <TextView
-                android:id="@+id/tvQuestion6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Q: How can I change my password?"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:padding="8dp" />
-
-            <TextView
-                android:id="@+id/tvAnswer6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="A: To change your password, go to 'Settings,' select 'Change Password,' and enter your current password followed by the new password. Save the changes to update your password."
-                android:textSize="14sp"
-                android:paddingStart="8dp"
-                android:paddingBottom="8dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0"
-                android:layout_marginBottom="8dp" />
-
+            <!-- FAQ 3 -->
             <TextView
                 android:id="@+id/tvQuestion3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Q: How can I change my profile picture?"
+                android:text="@string/faq_change_password_question"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:padding="8dp"
-                android:layout_marginBottom="4dp" />
+                android:padding="8dp" />
 
             <TextView
                 android:id="@+id/tvAnswer3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="A: Go to the 'Profile' section, tap on your current profile picture, and upload a new image."
+                android:text="@string/faq_change_password_answer"
                 android:textSize="14sp"
-                android:padding="8dp"
-                android:layout_marginBottom="12dp" />
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="8dp" />
+
+            <!-- FAQ 4 -->
+            <TextView
+                android:id="@+id/tvQuestion4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_change_profile_picture_question"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/tvAnswer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/faq_change_profile_picture_answer"
+                android:textSize="14sp"
+                android:padding="8dp" />
 
         </LinearLayout>
     </ScrollView>
 
+    <!-- Contact Support Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContactSupport"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Contact Support"
+        android:text="@string/contact_support"
         android:textColor="@android:color/white"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -176,7 +181,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

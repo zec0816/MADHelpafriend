@@ -3,6 +3,7 @@ package com.example.helpafriend;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -64,7 +65,7 @@ public class Profile extends BaseActivity {
             return;
         }
 
-        Button readAloudButton = findViewById(R.id.TTSButton);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
                 stopTTS(); // Stop TTS if already speaking
@@ -94,7 +95,21 @@ public class Profile extends BaseActivity {
         // Set up click listeners
         setupClickListeners();
         setupBottomNavigation();
+        applySelectedLanguage();
     }
+
+    private void applySelectedLanguage() {
+        String savedLocale = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getString("appLocale", "en");
+        Locale locale = new Locale(savedLocale);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+    }
+
 
     private void readAloudForumContent() {
         String forumContent = "Welcome to the Profile Page."; // Content to be spoken

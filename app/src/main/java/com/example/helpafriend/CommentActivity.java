@@ -71,7 +71,7 @@ public class CommentActivity extends AppCompatActivity {
         Log.d(TAG, "Post ID: " + postId);
 
         // Read Aloud Button
-        Button readAloudButton = findViewById(R.id.readAloud);
+        ImageButton readAloudButton = findViewById(R.id.readAloud);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
                 stopTTS(); // Stop TTS if already speaking
