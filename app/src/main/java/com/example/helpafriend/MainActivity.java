@@ -4,6 +4,7 @@ package com.example.helpafriend;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.speech.SpeechRecognizer;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +43,10 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
 
+    private SharedPreferences sharedPreferences;
+    private ImageView profileImageView;
+    private String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize UI components
+        profileImageView = findViewById(R.id.profileImage);
         recentPostsRecyclerView = findViewById(R.id.recentPostsRecyclerView);
         welcomeText = findViewById(R.id.welcomeText); // Get Welcome TextView
         emptyStateText = findViewById(R.id.emptyStateText);
@@ -81,9 +89,12 @@ public class MainActivity extends BaseActivity {
         // Set up Read Aloud Button click event
         readAloudButton.setOnClickListener(view -> readAloudForumContent());
 
-        // Retrieve username from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        String username = sharedPreferences.getString("username", "User"); // Default is "User" if not found
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", null);
+
+        // Load the profile image
+        loadProfileImage();
 
         // Use the string resource for the welcome message
         String welcomeMessage = getString(R.string.welcome) + ", " + username;
@@ -95,6 +106,42 @@ public class MainActivity extends BaseActivity {
         // Set up the bottom navigation
         setupBottomNavigation();
         applySelectedLanguage();
+    }
+
+    private void loadProfileImage() {
+        // Get user-specific image file
+        File imageFile = getUserProfileImageFile();
+        if (imageFile.exists()) {
+            try {
+                Uri imageUri = Uri.fromFile(imageFile);
+                profileImageView.setImageURI(imageUri);
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Fallback: Load from SharedPreferences
+        String profileImageUri = sharedPreferences.getString("profile_image_uri_" + username, null);
+        if (profileImageUri != null) {
+            try {
+                Uri imageUri = Uri.parse(profileImageUri);
+                profileImageView.setImageURI(imageUri);
+            } catch (Exception e) {
+                e.printStackTrace();
+                setDefaultProfileImage();
+            }
+        } else {
+            setDefaultProfileImage();
+        }
+    }
+
+    private File getUserProfileImageFile() {
+        return new File(getFilesDir(), "profile_image_" + username + ".jpg");
+    }
+
+    private void setDefaultProfileImage() {
+        profileImageView.setImageResource(R.drawable.ic_profile); // Default placeholder
     }
 
     private void applySelectedLanguage() {
