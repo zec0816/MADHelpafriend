@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +71,21 @@ public class VolunteerMainPage extends BaseActivity {
     }
 
     private void loadProfileImage() {
-        // Retrieve the URI from SharedPreferences
-        String profileImageUri = sharedPreferences.getString("profile_image_uri_" + username, null);
+        // Get user-specific image file
+        File imageFile = getUserProfileImageFile();
 
+        if (imageFile.exists()) {
+            try {
+                Uri imageUri = Uri.fromFile(imageFile);
+                profileImageView.setImageURI(imageUri);
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Fallback: Load from SharedPreferences
+        String profileImageUri = sharedPreferences.getString("profile_image_uri_" + username, null);
         if (profileImageUri != null) {
             try {
                 Uri imageUri = Uri.parse(profileImageUri);
@@ -86,9 +99,14 @@ public class VolunteerMainPage extends BaseActivity {
         }
     }
 
-    private void setDefaultProfileImage() {
-        profileImageView.setImageResource(R.drawable.ic_profile); // Set a default placeholder image
+    private File getUserProfileImageFile() {
+        return new File(getFilesDir(), "profile_image_" + username + ".jpg");
     }
+
+    private void setDefaultProfileImage() {
+        profileImageView.setImageResource(R.drawable.ic_profile); // Default placeholder
+    }
+
 
 
     private void fetchHelpHistory(String username) {
