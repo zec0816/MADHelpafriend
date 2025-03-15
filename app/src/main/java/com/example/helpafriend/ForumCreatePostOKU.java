@@ -1,6 +1,7 @@
 package com.example.helpafriend;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Locale;
 
 public class ForumCreatePostOKU extends BaseActivity {
 
@@ -52,6 +54,18 @@ public class ForumCreatePostOKU extends BaseActivity {
                 }
             }
         });
+        applySelectedLanguage();
+    }
+    private void applySelectedLanguage() {
+        String savedLocale = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                .getString("appLocale", "en");
+        Locale locale = new Locale(savedLocale);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 
     private class SubmitPostTask extends AsyncTask<String, Void, String> {

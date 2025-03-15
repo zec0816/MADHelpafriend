@@ -53,7 +53,7 @@ public class EditProfile extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         oldUsername = prefs.getString("username", "UnknownUser");
-        currentUsernameTextView.setText("Current Username: " + oldUsername);
+        currentUsernameTextView.setText(getString(R.string.current_username) + ": " + oldUsername);
 
         saveButton.setOnClickListener(view -> {
             String newUsername = usernameEditText.getText().toString().trim();
