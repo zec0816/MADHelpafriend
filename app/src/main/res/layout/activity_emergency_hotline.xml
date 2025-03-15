@@ -7,10 +7,6 @@
     tools:context=".EmergencyHotlineActivity"
     android:background="#F8EFFF">
 
-    <!-- Header Section -->
-
-    <!-- Scrollable Emergency Contacts -->
-
     <LinearLayout
         android:id="@+id/header_section"
         android:layout_width="412dp"
@@ -26,7 +22,6 @@
 
     </LinearLayout>
 
-    <!-- Bottom Navigation -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -44,7 +39,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Emergency Contact 1 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +91,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Emergency Contact 2 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,7 +143,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Emergency Contact 3 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -203,7 +195,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Emergency Contact 4 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

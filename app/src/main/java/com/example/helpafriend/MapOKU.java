@@ -64,26 +64,25 @@ public class MapOKU extends BaseActivity {
 
         acceptedRequestsButton = findViewById(R.id.accepted_requests_button);
 
-        // Set up button click listener
         acceptedRequestsButton.setOnClickListener(view -> showAcceptedRequests());
 
         // Check if the permission is granted
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            getCurrentLocation();  // Permission is already granted
+            getCurrentLocation();  // If granted
         } else {
-            // Request permission if not granted
+            // If not granted
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
 
         Button readAloudButton = findViewById(R.id.TTSButton);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
-                stopTTS(); // Stop TTS if already speaking
+                stopTTS();
             } else {
-                readAloudForumContent(); // Start reading aloud
+                readAloudForumContent();
             }
-            isReadingAloud = !isReadingAloud; // Toggle the state
+            isReadingAloud = !isReadingAloud;
         });
 
         tts = new TextToSpeech(this, status -> {
@@ -100,7 +99,7 @@ public class MapOKU extends BaseActivity {
     }
 
     private void readAloudForumContent() {
-        String forumContent = "Welcome to the Map Page."; // Content to be spoken
+        String forumContent = "Welcome to the Map Page.";
         if (tts != null) {
             tts.speak(forumContent, TextToSpeech.QUEUE_FLUSH, null, null);
         } else {
@@ -305,9 +304,9 @@ public class MapOKU extends BaseActivity {
     @Override
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_home; // Default item for volunteer role
+            return R.id.volunteer_home;
         } else {
-            return R.id.nav_activity; // Correct ID for Emergency Hotline in OKU role
+            return R.id.nav_activity;
         }
     }
 

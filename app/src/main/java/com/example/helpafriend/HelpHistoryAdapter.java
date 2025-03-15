@@ -29,10 +29,9 @@ public class HelpHistoryAdapter extends RecyclerView.Adapter<HelpHistoryAdapter.
     public void onBindViewHolder(@NonNull HelpHistoryViewHolder holder, int position) {
         HelpHistory history = helpHistoryList.get(position);
 
-        // Bind data to the views
         holder.okuNameTextView.setText(history.getOkuName());
         holder.helpDateTextView.setText(history.getHelpDate());
-        holder.pointsTextView.setText("+50 points"); // Static text for points
+        holder.pointsTextView.setText("+50 points");
     }
 
     @Override
@@ -40,7 +39,6 @@ public class HelpHistoryAdapter extends RecyclerView.Adapter<HelpHistoryAdapter.
         return helpHistoryList.size();
     }
 
-    // Static Inner Class for the ViewHolder
     public static class HelpHistoryViewHolder extends RecyclerView.ViewHolder {
         TextView okuNameTextView;
         TextView helpDateTextView;
@@ -49,10 +47,9 @@ public class HelpHistoryAdapter extends RecyclerView.Adapter<HelpHistoryAdapter.
         public HelpHistoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            // Initialize views from the layout
             okuNameTextView = itemView.findViewById(R.id.okuNameTextView);
             helpDateTextView = itemView.findViewById(R.id.helpDateTextView);
-            pointsTextView = itemView.findViewById(R.id.pointsTextView); // New TextView for points
+            pointsTextView = itemView.findViewById(R.id.pointsTextView);
         }
     }
 }

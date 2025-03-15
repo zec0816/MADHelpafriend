@@ -5,7 +5,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!-- Title Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +29,6 @@
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
-    <!-- Scrollable container for posts -->
     <ScrollView
         android:id="@+id/postContainerScrollView"
         android:layout_width="match_parent"
@@ -45,7 +43,6 @@
             android:padding="16dp" />
     </ScrollView>
 
-    <!-- Button Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +50,6 @@
         android:gravity="end"
         android:padding="16dp">
 
-        <!-- Button to create a new post -->
         <Button
             android:id="@+id/createPostButton"
             android:layout_width="wrap_content"
@@ -62,7 +58,6 @@
             android:text="Create Post"
             android:textColorLink="@color/colorPrimary" />
 
-        <!-- Button to read aloud -->
         <Button
             android:id="@+id/readAloudButton"
             android:layout_width="wrap_content"
@@ -73,7 +68,6 @@
             android:textColorLink="@color/colorPrimary" />
     </LinearLayout>
 
-    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"

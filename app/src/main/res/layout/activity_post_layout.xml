@@ -14,7 +14,6 @@
         android:padding="16dp"
         android:background="@android:color/white">
 
-        <!-- Post Title -->
         <TextView
             android:id="@+id/postTitle"
             android:layout_width="wrap_content"
@@ -24,7 +23,6 @@
             android:textColor="#4A4A4A"
             android:text="Post Title" />
 
-        <!-- Post Content -->
         <TextView
             android:id="@+id/postContent"
             android:layout_width="match_parent"
@@ -36,7 +34,6 @@
             android:ellipsize="end"
             android:text="This is the content of the post. It will be truncated if it's too long to fit in the layout." />
 
-        <!-- Post Date -->
         <TextView
             android:id="@+id/postDate"
             android:layout_width="wrap_content"
@@ -46,7 +43,6 @@
             android:layout_marginTop="4dp"
             android:text="Posted on 12 Dec 2024" />
 
-        <!-- Buttons Container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +50,6 @@
             android:layout_marginTop="12dp"
             android:gravity="center_vertical">
 
-            <!-- Like Button -->
             <ImageButton
                 android:id="@+id/loveButton"
                 android:layout_width="32dp"
@@ -64,7 +59,6 @@
                 android:src="@drawable/icon_heart_unfilled"
                 android:contentDescription="Like Button" />
 
-            <!-- Like Count -->
             <TextView
                 android:id="@+id/likeCount"
                 android:layout_width="wrap_content"
@@ -74,13 +68,11 @@
                 android:textSize="14sp"
                 android:textColor="#4A4A4A" />
 
-            <!-- Spacer -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            <!-- Comment Button -->
             <ImageButton
                 android:id="@+id/commentButton"
                 android:layout_width="32dp"

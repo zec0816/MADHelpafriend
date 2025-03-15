@@ -4,7 +4,6 @@
     android:padding="8dp"
     android:background="?android:attr/selectableItemBackground">
 
-    <!-- Text View to display the request information -->
     <TextView
         android:id="@+id/request_text"
         android:layout_width="wrap_content"
@@ -14,7 +13,6 @@
         android:text="Request Info"
         android:textSize="16sp" />
 
-    <!-- Button to navigate to the destination -->
     <Button
         android:id="@+id/go_button"
         android:layout_width="wrap_content"

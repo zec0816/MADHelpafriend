@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App Name -->
     <string name="app_name">BantuRakan</string>
 
-    <!-- Roles Array -->
     <string-array name="roles_array">
         <item>OKU</item>
         <item>Sukarelawan</item>
     </string-array>
 
-    <!-- Email -->
     <string name="email_recipient">support@myapp.com</string>
     <string name="email_subject">Permintaan Sokongan</string>
-    <!-- Keeping email_body as non-translatable, but you can still translate the content if desired -->
     <string name="email_body" translatable="false">
         Pasukan Sokongan yang dihormati,
 

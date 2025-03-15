@@ -4,13 +4,13 @@ public class Post {
     private String title;
     private String content;
     private String createdAt;
-    private String username; // Add username
+    private String username;
 
     public Post(String title, String content, String createdAt, String username) {
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
-        this.username = username; // Initialize username
+        this.username = username;
     }
 
     public String getTitle() {
@@ -26,6 +26,6 @@ public class Post {
     }
 
     public String getUsername() {
-        return username; // Getter for username
+        return username;
     }
 }

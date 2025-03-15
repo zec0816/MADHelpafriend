@@ -29,7 +29,7 @@ import java.util.Locale;
 public class MainActivity extends BaseActivity {
 
     private RecyclerView recentPostsRecyclerView;
-    private TextView welcomeText; // Welcome TextView
+    private TextView welcomeText;
     private TextView emptyStateText;
     private RecentPostsAdapter postAdapter;
     private List<Post> postList;
@@ -44,12 +44,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize UI components
         recentPostsRecyclerView = findViewById(R.id.recentPostsRecyclerView);
         welcomeText = findViewById(R.id.welcomeText); // Get Welcome TextView
         emptyStateText = findViewById(R.id.emptyStateText);
 
-        // Set up RecyclerView
         recentPostsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         postList = new ArrayList<>();
         postAdapter = new RecentPostsAdapter(postList);
@@ -68,25 +66,20 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        // Set up Read Aloud Button click event
         readAloudButton.setOnClickListener(view -> readAloudForumContent());
 
-        // Retrieve username from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "User"); // Default is "User" if not found
 
-        // Display the username
         welcomeText.setText("WELCOME, " + username);
 
-        // Fetch and display the two most recent posts
         fetchRecentPosts();
 
-        // Set up the bottom navigation
         setupBottomNavigation();
     }
 
     private void readAloudForumContent() {
-        String forumContent = "Welcome to the Main Page."; // Replace with actual content
+        String forumContent = "Welcome to the Main Page.";
         if (tts != null) {
             tts.speak(forumContent, TextToSpeech.QUEUE_FLUSH, null, null);
         } else {
@@ -138,9 +131,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_home; // Default item for volunteer role
+            return R.id.volunteer_home;
         } else {
-            return R.id.nav_home; // Correct ID for forum in OKU role
+            return R.id.nav_home;
         }
     }
 

@@ -41,16 +41,13 @@ public class MapVolunteer extends BaseActivity {
         setContentView(R.layout.activity_map_volunteer);
         setupBottomNavigation();
 
-        // Initialize map fragment, button, and lists
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         showListButton = findViewById(R.id.show_list_button);
         okuRequests = new ArrayList<>();
         okuRequestData = new ArrayList<>();
 
-        // Fetch OKU locations and add markers
         getOKULocations();
 
-        // Set up button to display list of pending requests
         showListButton.setOnClickListener(v -> showPendingRequestsDialog());
     }
 
@@ -66,7 +63,6 @@ public class MapVolunteer extends BaseActivity {
                         supportMapFragment.getMapAsync(map -> {
                             googleMap = map;
 
-                            // Add volunteer marker (hardcoded location)
                             LatLng volunteerLocation = new LatLng(3.2219267, 101.6569933);
                             googleMap.addMarker(new MarkerOptions().position(volunteerLocation).title("Volunteer Location"));
 
@@ -163,9 +159,9 @@ public class MapVolunteer extends BaseActivity {
     @Override
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_activity; // Default item for volunteer role
+            return R.id.volunteer_activity;
         } else {
-            return R.id.nav_profile; // Correct ID for Emergency Hotline in OKU role
+            return R.id.nav_profile;
         }
     }
 }

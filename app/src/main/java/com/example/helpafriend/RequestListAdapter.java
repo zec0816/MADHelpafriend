@@ -49,14 +49,11 @@ public class RequestListAdapter extends ArrayAdapter<JSONObject> {
             double latitude = request.getDouble("latitude");
             double longitude = request.getDouble("longitude");
 
-            // Set request information
             requestText.setText("Request ID: " + idLocation);
 
-            // Set button click listener to navigate and update status
             goButton.setOnClickListener(v -> {
                 updateRequestStatus(idLocation, "accepted");
 
-                // Navigate to the destination
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + latitude + "," + longitude));
                 context.startActivity(intent);
             });
@@ -71,7 +68,6 @@ public class RequestListAdapter extends ArrayAdapter<JSONObject> {
     private void updateRequestStatus(int idLocation, String status) {
         String url = Db_Contract.urlUpdateStatus;
 
-        // Retrieve the saved username from SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username", null); // Get the username, default is null if not found
 
@@ -88,7 +84,7 @@ public class RequestListAdapter extends ArrayAdapter<JSONObject> {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_location", String.valueOf(idLocation));
                 params.put("status", status);
-                params.put("username", username); // Send the username to the server
+                params.put("username", username);
                 return params;
             }
         };

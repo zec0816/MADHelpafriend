@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Post Title -->
         <TextView
             android:id="@+id/postTitle"
             android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
             android:textStyle="bold"
             android:textColor="#333333" />
 
-        <!-- Username -->
         <TextView
             android:id="@+id/postUsername"
             android:layout_width="wrap_content"
@@ -36,7 +34,6 @@
             android:textColor="#666666"
             android:textStyle="bold" />
 
-        <!-- Post Content -->
         <TextView
             android:id="@+id/postContent"
             android:layout_width="wrap_content"
@@ -46,7 +43,6 @@
             android:textSize="14sp"
             android:textColor="#666666" />
 
-        <!-- Post Date -->
         <TextView
             android:id="@+id/postDate"
             android:layout_width="wrap_content"

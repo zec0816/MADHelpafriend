@@ -28,7 +28,6 @@ public class Leaderboard extends BaseActivity {
         setContentView(R.layout.activity_leaderboard);
         setupBottomNavigation();
 
-        // Initialize RecyclerView and list
         leaderboardRecyclerView = findViewById(R.id.leaderboard_recycler_view);
         leaderboardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -36,7 +35,6 @@ public class Leaderboard extends BaseActivity {
         leaderboardAdapter = new LeaderboardAdapter(leaderboardEntries);
         leaderboardRecyclerView.setAdapter(leaderboardAdapter);
 
-        // Fetch leaderboard data
         fetchLeaderboard();
     }
 
@@ -66,9 +64,9 @@ public class Leaderboard extends BaseActivity {
     @Override
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_leaderboard; // Default item for volunteer role
+            return R.id.volunteer_leaderboard;
         } else {
-            return R.id.nav_profile; // Correct ID for Emergency Hotline in OKU role
+            return R.id.nav_profile;
         }
     }
 }

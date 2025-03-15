@@ -55,7 +55,6 @@ public class Login extends AppCompatActivity {
 
                     String url = Db_Contract.urlLogin + "?username=" + username + "&password=" + password;
 
-                    // Using JsonObjectRequest to parse JSON response
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -68,10 +67,10 @@ public class Login extends AppCompatActivity {
                                     // Save username and role in SharedPreferences
                                     SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("username", username); // Save the logged-in username
-                                    editor.putString("role", role); // Save the role
+                                    editor.putString("username", username);
+                                    editor.putString("role", role);
                                     editor.putString("password", password);
-                                    editor.apply(); // Apply changes
+                                    editor.apply();
 
                                     Toast.makeText(getApplicationContext(), "Successfully logged in", Toast.LENGTH_SHORT).show();
 

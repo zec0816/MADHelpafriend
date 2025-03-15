@@ -18,16 +18,16 @@ public class BaseActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        String role = sharedPreferences.getString("role", "OKU"); // Default to OKU if no role found
+        String role = sharedPreferences.getString("role", "OKU");
 
         // Load the correct menu based on the role
         if (role.equals("volunteer")) {
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_volunteer);
         } else {
-            bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu); // Default to OKU
+            bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu);
         }
 
-        bottomNavigationView.setSelectedItemId(getSelectedNavItemId(role)); // Set the correct default selected item
+        bottomNavigationView.setSelectedItemId(getSelectedNavItemId(role));
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -105,9 +105,9 @@ public class BaseActivity extends AppCompatActivity {
 
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_home; // Default item for volunteer role
+            return R.id.volunteer_home;
         } else {
-            return R.id.nav_home; // Default item for OKU role
+            return R.id.nav_home;
         }
     }
 }

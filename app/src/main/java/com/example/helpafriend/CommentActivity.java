@@ -44,7 +44,6 @@ public class CommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
-        // Initialize UI components
         commentsContainer = findViewById(R.id.commentsContainer);
         commentInput = findViewById(R.id.commentInput);
         submitCommentButton = findViewById(R.id.submitCommentButton);
@@ -52,7 +51,7 @@ public class CommentActivity extends AppCompatActivity {
 
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
-            // Initialize Text-to-Speech
+        // Initialize Text-to-Speech
         tts = new TextToSpeech(this, status -> {
             if (status == TextToSpeech.SUCCESS) {
                 int result = tts.setLanguage(Locale.US);
@@ -66,7 +65,6 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
 
-        // Get post ID from Intent
         postId = getIntent().getStringExtra("postId");
         Log.d(TAG, "Post ID: " + postId);
 
@@ -74,17 +72,15 @@ public class CommentActivity extends AppCompatActivity {
         Button readAloudButton = findViewById(R.id.readAloud);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
-                stopTTS(); // Stop TTS if already speaking
+                stopTTS();
             } else {
                 readAloudForumContent(); // Start reading aloud
             }
-            isReadingAloud = !isReadingAloud; // Toggle the state
+            isReadingAloud = !isReadingAloud;
         });
 
-        // Fetch post title and comments
         fetchPostDetailsAndComments();
 
-        // Handle submit comment button
         submitCommentButton.setOnClickListener(view -> {
             String comment = commentInput.getText().toString().trim();
             if (comment.isEmpty()) {
@@ -99,7 +95,6 @@ public class CommentActivity extends AppCompatActivity {
     private void readAloudForumContent() {
         StringBuilder forumContent = new StringBuilder();
 
-        // Say welcome message
         forumContent.append("Welcome to the Comment Page. ");
 
         // Add comments to the content
@@ -192,8 +187,8 @@ public class CommentActivity extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(response);
                         if (jsonResponse.optString("status").equals("success")) {
                             Toast.makeText(this, "Comment added successfully", Toast.LENGTH_SHORT).show();
-                            fetchPostDetailsAndComments(); // Refresh comments
-                            commentInput.setText(""); // Clear input
+                            fetchPostDetailsAndComments(); // Refresh comments to avoid duplication
+                            commentInput.setText("");
                         } else {
                             Toast.makeText(this, "Failed to add comment: " + jsonResponse.optString("message"), Toast.LENGTH_SHORT).show();
                         }

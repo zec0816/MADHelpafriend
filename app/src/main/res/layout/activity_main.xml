@@ -8,7 +8,6 @@
     android:background="#F8F8F8"
     tools:context=".MainActivity">
 
-    <!-- Gradient Header -->
     <LinearLayout
         android:id="@+id/headerSection"
         android:layout_width="match_parent"
@@ -20,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Circular Profile Image -->
         <androidx.cardview.widget.CardView
             android:id="@+id/profileImageCard"
             android:layout_width="100dp"
@@ -49,7 +47,6 @@
 
     </LinearLayout>
 
-    <!-- Recent Posts Title -->
     <TextView
         android:id="@+id/recentPostsTitle"
         android:layout_width="wrap_content"
@@ -63,7 +60,6 @@
         app:layout_constraintTop_toBottomOf="@id/headerSection"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- RecyclerView for Recent Posts -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recentPostsRecyclerView"
         android:layout_width="0dp"
@@ -75,7 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Empty State Text for RecyclerView -->
     <TextView
         android:id="@+id/emptyStateText"
         android:layout_width="wrap_content"
@@ -87,12 +82,6 @@
         app:layout_constraintTop_toBottomOf="@id/recentPostsRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Read Aloud Button -->
-
-    <!-- Request Help Button -->
-
-    <!-- Bottom Navigation -->
 
     <Button
         android:id="@+id/readAloudButton"

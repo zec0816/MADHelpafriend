@@ -32,7 +32,7 @@ public class EditProfile extends AppCompatActivity {
     private Button saveButton;
     private ProgressBar progressBar;
 
-    private String oldUsername; // Holds the logged-in username
+    private String oldUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,6 @@ public class EditProfile extends AppCompatActivity {
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> finish());
 
-        // Initialize views
         currentUsernameTextView = findViewById(R.id.currentUsernameTextView);
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
@@ -52,12 +51,10 @@ public class EditProfile extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
-        // Retrieve current username from SharedPreferences
         SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         oldUsername = prefs.getString("username", "UnknownUser");
         currentUsernameTextView.setText("Current Username: " + oldUsername);
 
-        // Save button action
         saveButton.setOnClickListener(view -> {
             String newUsername = usernameEditText.getText().toString().trim();
             String newPassword = passwordEditText.getText().toString().trim();
@@ -70,7 +67,6 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
-    // Validate the user input
     private boolean validateInput(String newUsername, String newPassword, String confirmPassword) {
         if (newUsername.isEmpty() && newPassword.isEmpty()) {
             Toast.makeText(this, "No changes detected. Please update your username or password.", Toast.LENGTH_SHORT).show();
@@ -95,8 +91,6 @@ public class EditProfile extends AppCompatActivity {
         return true;
     }
 
-    // Send update request to the server
-    // Send update request to the server
     private void updateProfileOnServer(String oldUsername, String newUsername, String newPassword) {
         String url = Db_Contract.urlUpdateProfile;
 
@@ -108,13 +102,11 @@ public class EditProfile extends AppCompatActivity {
 
 
                     try {
-                        // Parse the JSON response
                         JSONObject jsonResponse = new JSONObject(response);
-                        boolean success = jsonResponse.getBoolean("success"); // Check if the update was successful
+                        boolean success = jsonResponse.getBoolean("success");
                         String message = jsonResponse.getString("message");
 
                         if (success) {
-                            // Profile update is successful
                             Toast.makeText(EditProfile.this, message, Toast.LENGTH_SHORT).show();
 
                             // Update username in SharedPreferences if it was changed
@@ -122,14 +114,12 @@ public class EditProfile extends AppCompatActivity {
                                 SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs.edit();
                                 editor.putString("username", newUsername);
-                                editor.remove("password");  // Remove the password after the change
+                                editor.remove("password");
                                 editor.apply();
                             }
 
-                            // Show prompt to re-login
                             showReloginPrompt();
                         } else {
-                            // Update failed
                             Toast.makeText(EditProfile.this, "Failed to update profile. Try again.", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
@@ -139,7 +129,7 @@ public class EditProfile extends AppCompatActivity {
 
                 },
                 error -> {
-                    progressBar.setVisibility(View.GONE); // Hide the progress bar on error
+                    progressBar.setVisibility(View.GONE);
                     Log.e("UpdateProfile", "Error: " + error.toString());
                     Toast.makeText(EditProfile.this, "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
                 }) {
@@ -165,13 +155,13 @@ public class EditProfile extends AppCompatActivity {
                     // Clear SharedPreferences to log the user out
                     SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
-                    editor.clear();  // Remove all login information
+                    editor.clear();
                     editor.apply();
 
                     // Redirect to the Login activity
                     Intent loginIntent = new Intent(EditProfile.this, Login.class);
                     startActivity(loginIntent);
-                    finish(); // Finish EditProfile activity to prevent returning to it
+                    finish();
                 })
                 .setCancelable(false) // Prevent the dialog from being dismissed when tapped outside
                 .show();

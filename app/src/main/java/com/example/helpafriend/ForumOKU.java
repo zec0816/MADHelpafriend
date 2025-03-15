@@ -39,12 +39,10 @@ public class ForumOKU extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_oku);
 
-        // Initialize UI elements
         postContainer = findViewById(R.id.postContainer);
         createPostButton = findViewById(R.id.createPostButton);
         Button readAloudButton = findViewById(R.id.readAloudButton);
 
-        // Set up the create post button
         createPostButton.setOnClickListener(view -> {
             Intent intent = new Intent(ForumOKU.this, ForumCreatePostOKU.class);
             startActivity(intent);
@@ -59,20 +57,17 @@ public class ForumOKU extends BaseActivity {
             }
         });
 
-        // Handle Read Aloud Button
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
-                stopTTS(); // Stop TTS if already speaking
+                stopTTS();
             } else {
-                readAloudForumContent(); // Start reading aloud
+                readAloudForumContent();
             }
-            isReadingAloud = !isReadingAloud; // Toggle the state
+            isReadingAloud = !isReadingAloud;
         });
 
-        // Fetch posts for the first time
         fetchPosts();
 
-        // Setup bottom navigation
         setupBottomNavigation();
     }
 
@@ -82,10 +77,9 @@ public class ForumOKU extends BaseActivity {
             return;
         }
 
-        // Fetch the content to read aloud
         StringBuilder forumContent = new StringBuilder("Welcome to the Forum Page. ");
 
-        // Loop through visible forum posts and concatenate text
+        // Loop through visible forum posts and text
         for (int i = 0; i < postContainer.getChildCount(); i++) {
             View postView = postContainer.getChildAt(i);
             TextView titleView = postView.findViewById(R.id.postTitle);
@@ -97,14 +91,13 @@ public class ForumOKU extends BaseActivity {
             }
         }
 
-        // Read the content aloud
         tts.speak(forumContent.toString(), TextToSpeech.QUEUE_FLUSH, null, null);
     }
 
     private void stopTTS() {
         if (tts != null && tts.isSpeaking()) {
             tts.stop();
-            isReadingAloud = false; // Ensure state is consistent
+            isReadingAloud = false;
             Log.d("TTS", "Text-to-Speech stopped");
         }
     }
@@ -117,7 +110,7 @@ public class ForumOKU extends BaseActivity {
             StringBuilder result = new StringBuilder();
 
             try {
-                URL url = new URL(Db_Contract.urlGetPost); // Ensure your API URL is correct
+                URL url = new URL(Db_Contract.urlGetPost);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
 
@@ -144,7 +137,7 @@ public class ForumOKU extends BaseActivity {
 
                         // Extract post details
                         String postId = post.optString("id_post", "Unknown");
-                        if (!loadedPostIds.contains(postId)) { // Check if post ID is already loaded
+                        if (!loadedPostIds.contains(postId)) {
                             String title = post.optString("title", "No Title");
                             String content = post.optString("content", "No Content");
                             String createdAt = post.optString("created_at", "Unknown Date");
@@ -164,7 +157,6 @@ public class ForumOKU extends BaseActivity {
     private void addPostToContainer(String postId, String title, String content, String createdAt, int likeCount) {
         View postView = getLayoutInflater().inflate(R.layout.activity_post_layout, postContainer, false);
 
-        // Bind views
         TextView titleView = postView.findViewById(R.id.postTitle);
         TextView contentView = postView.findViewById(R.id.postContent);
         TextView dateView = postView.findViewById(R.id.postDate);
@@ -177,7 +169,6 @@ public class ForumOKU extends BaseActivity {
         dateView.setText(createdAt);
         likeCountView.setText(String.format("%d Likes", likeCount));
 
-        // Set up comment button
         commentButton.setOnClickListener(view -> {
             Intent intent = new Intent(ForumOKU.this, CommentActivity.class);
             intent.putExtra("postId", postId);
@@ -185,7 +176,7 @@ public class ForumOKU extends BaseActivity {
         });
 
         // Handle love button functionality
-        final boolean[] isLoved = {false}; // Track love state for this post
+        final boolean[] isLoved = {false};
         loveButton.setOnClickListener(view -> {
             if (!isLoved[0]) {
                 loveButton.setImageResource(R.drawable.icon_heart_filled);
@@ -206,17 +197,17 @@ public class ForumOKU extends BaseActivity {
     }
 
     private void reloadPosts() {
-        postContainer.removeAllViews(); // Clear the existing posts
-        loadedPostIds.clear(); // Clear the IDs to re-fetch posts properly
-        fetchPosts(); // Reload posts
+        postContainer.removeAllViews();
+        loadedPostIds.clear();
+        fetchPosts();
     }
 
     @Override
     protected int getSelectedNavItemId(String role) {
         if ("volunteer".equals(role)) {
-            return R.id.volunteer_forum; // Default item for volunteer role
+            return R.id.volunteer_forum;
         } else {
-            return R.id.nav_forum; // Correct ID for forum in OKU role
+            return R.id.nav_forum;
         }
     }
 

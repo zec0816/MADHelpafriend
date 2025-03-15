@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".MapOKU">
 
-    <!-- Google Map Fragment -->
     <fragment
         android:id="@+id/google_map"
         android:layout_width="match_parent"
@@ -13,7 +12,6 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_above="@id/bottomNavigationView" />
 
-    <!-- Accepted Requests Button -->
     <Button
         android:id="@+id/accepted_requests_button"
         android:layout_width="wrap_content"
@@ -25,10 +23,6 @@
         android:textColor="@android:color/white"
         android:backgroundTint="#8A2BE2"
         android:elevation="4dp" />
-
-    <!-- Read Aloud Button -->
-
-    <!-- Bottom Navigation View -->
 
     <Button
         android:id="@+id/TTSButton"

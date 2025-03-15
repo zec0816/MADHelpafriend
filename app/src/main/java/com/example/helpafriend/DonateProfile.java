@@ -29,13 +29,11 @@ public class DonateProfile extends AppCompatActivity {
             finish();
         });
 
-        // Initialize UI components
         etDonationAmount = findViewById(R.id.etDonationAmount);
         spPaymentMethod = findViewById(R.id.spPaymentMethod);
         btnDonate = findViewById(R.id.btnDonate);
         btnCancel = findViewById(R.id.btnCancel);
 
-        // Populate Spinner with payment methods
         String[] paymentMethods = {"Credit Card", "PayPal", "Google Pay", "Apple Pay"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -45,7 +43,6 @@ public class DonateProfile extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spPaymentMethod.setAdapter(adapter);
 
-        // Set click listener for Donate button
         btnDonate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +50,6 @@ public class DonateProfile extends AppCompatActivity {
             }
         });
 
-        // Set click listener for Cancel button
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,11 +77,9 @@ public class DonateProfile extends AppCompatActivity {
                 return;
             }
 
-            // Simulate a donation process
             String message = "Thank you for your donation of $" + donationAmount + " via " + paymentMethod + "!";
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
-            // Clear the fields after successful donation
             etDonationAmount.setText("");
             spPaymentMethod.setSelection(0);
 

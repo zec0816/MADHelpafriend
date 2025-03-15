@@ -36,7 +36,6 @@ public class VolunteerMainPage extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer_main_page);
 
-        // Initialize UI components
         usernameTextView = findViewById(R.id.usernameTextView);
         totalPointsTextView = findViewById(R.id.pointsTextView);
         helpHistoryRecyclerView = findViewById(R.id.help_history_recyclerview);
@@ -53,15 +52,13 @@ public class VolunteerMainPage extends BaseActivity {
 
         usernameTextView.setText("Welcome, " + username);
 
-        // Fetch total points and help history for this user
-        fetchNumHelped(username); // Fetch num_helped based on username
-        fetchHelpHistory(username); // Fetch OKU names and help dates
+        fetchNumHelped(username);
+        fetchHelpHistory(username);
 
         setupBottomNavigation();
     }
 
     private void fetchHelpHistory(String username) {
-        // Replace with the actual URL for fetching help history
         String url = Db_Contract.urlFetchHelpHistory + "?username=" + username;
 
         JsonObjectRequest request = new JsonObjectRequest(
@@ -70,7 +67,6 @@ public class VolunteerMainPage extends BaseActivity {
                 null,
                 response -> {
                     try {
-                        // Log the response for debugging
                         Log.d("VolunteerMainPage", "Helped OKU API Response: " + response.toString());
 
                         // Clear the previous list to avoid adding duplicate data
@@ -79,11 +75,9 @@ public class VolunteerMainPage extends BaseActivity {
                         // Get the total number of people helped
                         int totalHelped = response.getInt("total_helped");
 
-                        // Display the total number of people helped
                         TextView totalHelpedTextView = findViewById(R.id.totalHelpedTextView);
                         totalHelpedTextView.setText("You helped " + totalHelped + " people");
 
-                        // Get the helped_list array from the response
                         JSONArray helpedList = response.getJSONArray("helped_list");
 
                         if (helpedList.length() == 0) {
@@ -93,21 +87,18 @@ public class VolunteerMainPage extends BaseActivity {
                             for (int i = 0; i < helpedList.length(); i++) {
                                 JSONObject okuData = helpedList.getJSONObject(i);
 
-                                String okuName = okuData.getString("oku_name"); // OKU name
-                                String helpDate = okuData.getString("help_date"); // Help date
+                                String okuName = okuData.getString("oku_name");
+                                String helpDate = okuData.getString("help_date");
 
-                                // Create a HelpHistory object and add it to the list
                                 HelpHistory history = new HelpHistory(okuName, helpDate);
                                 helpHistoryList.add(history);
                             }
 
-                            // Initialize the adapter if it's not initialized already
                             if (helpHistoryAdapter == null) {
                                 helpHistoryAdapter = new HelpHistoryAdapter(helpHistoryList);
                                 helpHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
                                 helpHistoryRecyclerView.setAdapter(helpHistoryAdapter);
                             } else {
-                                // If the adapter is already initialized, just notify that data has changed
                                 helpHistoryAdapter.notifyDataSetChanged();
                             }
                         }
@@ -122,7 +113,6 @@ public class VolunteerMainPage extends BaseActivity {
                 }
         );
 
-        // Add the request to the Volley request queue
         Volley.newRequestQueue(this).add(request);
     }
 

@@ -22,14 +22,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Assume user credentials are entered and validated
-        String url = Db_Contract.urlLogin; // Replace with your login endpoint
+        String url = Db_Contract.urlLogin;
 
-        // Example login request
+        // Login request example
         JsonObjectRequest loginRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
-                null, // Add your POST parameters here
+                null,
                 response -> {
                     try {
                         if (response.has("id_user") && response.has("username")) {

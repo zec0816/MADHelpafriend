@@ -49,14 +49,11 @@ public class Profile extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Initialize preferences
         preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
-        // Get current user information from SharedPreferences
         currentUsername = preferences.getString("username", null);
         currentRole = preferences.getString("role", null);
 
-        // Check if user is logged in
         if (currentUsername == null || currentRole == null) {
             Toast.makeText(this, "Please log in first", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, Login.class));
@@ -67,11 +64,11 @@ public class Profile extends BaseActivity {
         Button readAloudButton = findViewById(R.id.TTSButton);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
-                stopTTS(); // Stop TTS if already speaking
+                stopTTS();
             } else {
-                readAloudForumContent(); // Start reading aloud
+                readAloudForumContent();
             }
-            isReadingAloud = !isReadingAloud; // Toggle the state
+            isReadingAloud = !isReadingAloud;
         });
 
         tts = new TextToSpeech(this, status -> {
@@ -85,19 +82,16 @@ public class Profile extends BaseActivity {
             }
         });
 
-        // Initialize views
         initializeViews();
 
-        // Load user data
         loadUserData();
 
-        // Set up click listeners
         setupClickListeners();
         setupBottomNavigation();
     }
 
     private void readAloudForumContent() {
-        String forumContent = "Welcome to the Profile Page."; // Content to be spoken
+        String forumContent = "Welcome to the Profile Page.";
         if (tts != null) {
             tts.speak(forumContent, TextToSpeech.QUEUE_FLUSH, null, null);
         } else {
@@ -123,10 +117,8 @@ public class Profile extends BaseActivity {
     }
 
     private void loadUserData() {
-        // Set username
         usernameEditText.setText(currentUsername);
 
-        // Load profile image
         loadProfileImage();
     }
 

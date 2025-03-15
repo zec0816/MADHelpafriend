@@ -285,7 +285,6 @@ public class SettingsProfile extends AppCompatActivity {
                 int responseCode = conn.getResponseCode();
                 Log.d("DeleteAccount", "Response Code: " + responseCode);
 
-                // Read the response
                 StringBuilder response = new StringBuilder();
                 try (BufferedReader in = new BufferedReader(
                         new InputStreamReader(conn.getInputStream()))) {
@@ -306,7 +305,6 @@ public class SettingsProfile extends AppCompatActivity {
                     runOnUiThread(() -> {
                         Toast.makeText(SettingsProfile.this, message, Toast.LENGTH_SHORT).show();
                         if (status.equals("success")) {
-                            // Clear preferences and redirect to login
                             editor.clear();
                             editor.apply();
                             Intent intent = new Intent(SettingsProfile.this, Login.class);

@@ -19,7 +19,6 @@ public class Rating extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
 
-        // Initialize all buttons
         btn_noway = findViewById(R.id.btn_noway);
         btn_poor = findViewById(R.id.btn_poor);
         btn_ok = findViewById(R.id.btn_ok);
@@ -27,10 +26,8 @@ public class Rating extends AppCompatActivity {
         btn_loving = findViewById(R.id.btn_loving);
         btnSubmit = findViewById(R.id.btnSubmit);
 
-        // Disable submit button initially
         btnSubmit.setEnabled(false);
 
-        // Set click listeners for rating buttons
         btn_noway.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +63,6 @@ public class Rating extends AppCompatActivity {
             }
         });
 
-        // Submit button click listener
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +87,6 @@ public class Rating extends AppCompatActivity {
         btn_verygood.setAlpha(0.5f);
         btn_loving.setAlpha(0.5f);
 
-        // Highlight selected button
         switch (rating) {
             case 1:
                 btn_noway.setAlpha(1.0f);

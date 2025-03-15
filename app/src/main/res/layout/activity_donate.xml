@@ -16,7 +16,6 @@
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Back Button -->
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
@@ -28,7 +27,6 @@
             android:src="@drawable/icon_back"
             app:tint="@android:color/white" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"

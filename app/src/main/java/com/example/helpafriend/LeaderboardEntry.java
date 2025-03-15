@@ -18,6 +18,6 @@ public class LeaderboardEntry {
     }
 
     public int getPoints() {
-        return numHelped * 50; // Each help earns 50 points
+        return numHelped * 50;
     }
 }

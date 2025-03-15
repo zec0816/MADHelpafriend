@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App Name -->
     <string name="app_name">मित्र की सहायता</string>
 
-    <!-- Roles Array -->
     <string-array name="roles_array">
         <item>OKU</item>
         <item>स्वयंसेवक</item>
     </string-array>
 
-    <!-- Email -->
     <string name="email_recipient">support@myapp.com</string>
     <string name="email_subject">सहायता अनुरोध</string>
-    <!-- Keeping email_body as non-translatable, but you can still translate the content if desired -->
+    <!-- Keeping email_body as non-translatable here -->
     <string name="email_body" translatable="false">
         प्रिय सहायता टीम,
 

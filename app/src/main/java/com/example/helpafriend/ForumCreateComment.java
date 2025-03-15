@@ -35,20 +35,17 @@ public class ForumCreateComment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
-        // Retrieve the saved username from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", null);
 
-        // Get the post ID passed via Intent
         postId = getIntent().getStringExtra("postId");
 
-        // Initialize views
         editTextContent = findViewById(R.id.commentInput);
         buttonSubmitComment = findViewById(R.id.submitCommentButton);
         commentsContainer = findViewById(R.id.commentsContainer);
         ImageButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(view -> {
-            onBackPressed(); // Trigger the default back behavior
+            onBackPressed();
         });
 
         buttonSubmitComment.setOnClickListener(v -> {
@@ -61,7 +58,6 @@ public class ForumCreateComment extends AppCompatActivity {
             }
         });
 
-        // Load comments initially
         fetchComments();
     }
 
@@ -94,8 +90,8 @@ public class ForumCreateComment extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(response);
                         if (jsonResponse.optString("status").equals("success")) {
                             Toast.makeText(this, "Comment submitted successfully", Toast.LENGTH_SHORT).show();
-                            editTextContent.setText(""); // Clear input field
-                            fetchComments(); // Reload comments
+                            editTextContent.setText("");
+                            fetchComments();
                         } else {
                             Toast.makeText(this, "Failed to submit comment: " + jsonResponse.optString("message"), Toast.LENGTH_SHORT).show();
                         }
@@ -124,7 +120,6 @@ public class ForumCreateComment extends AppCompatActivity {
         try {
             JSONObject jsonResponse = new JSONObject(json);
 
-            // Check the "status" field
             if (!jsonResponse.optString("status").equals("success")) {
                 Toast.makeText(this, jsonResponse.optString("message"), Toast.LENGTH_SHORT).show();
                 return;
@@ -146,7 +141,7 @@ public class ForumCreateComment extends AppCompatActivity {
                 String content = comment.optString("comment", "No content");
                 String createdAt = comment.optString("created_at", "Unknown Date");
 
-                // Inflate and populate comment view
+                // Inflate comment view
                 View commentView = getLayoutInflater().inflate(R.layout.item_comment, commentsContainer, false);
 
                 TextView usernameView = commentView.findViewById(R.id.commentUsername);

@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <!-- Rank Text -->
         <TextView
             android:id="@+id/rank_text"
             android:layout_width="40dp"
@@ -28,7 +27,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Info Layout -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,7 +37,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="8dp">
 
-            <!-- Username -->
             <TextView
                 android:id="@+id/username_text"
                 android:layout_width="wrap_content"
@@ -49,7 +46,6 @@
                 android:textStyle="bold"
                 android:textColor="#000" />
 
-            <!-- Num Helped -->
             <TextView
                 android:id="@+id/num_helped_text"
                 android:layout_width="wrap_content"
@@ -58,7 +54,6 @@
                 android:textSize="14sp"
                 android:textColor="#666666" />
 
-            <!-- Points -->
             <TextView
                 android:id="@+id/points_text"
                 android:layout_width="wrap_content"

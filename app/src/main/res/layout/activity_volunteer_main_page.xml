@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".VolunteerMainPage">
 
-    <!-- Top Section with Profile and Points -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topSection"
         android:layout_width="0dp"
@@ -16,7 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Profile Picture -->
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="92dp"
@@ -29,9 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Welcome Text -->
-
-        <!-- Points Display -->
         <TextView
             android:id="@+id/usernameTextView"
             android:layout_width="169dp"
@@ -60,7 +55,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- RecyclerView to show People Helped History -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/help_history_recyclerview"
         android:layout_width="411dp"

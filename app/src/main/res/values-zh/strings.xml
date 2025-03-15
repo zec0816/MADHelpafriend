@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- App Name -->
     <string name="app_name">帮助好友</string>
 
-    <!-- Roles Array -->
     <string-array name="roles_array">
         <item>OKU</item>
         <item>志愿者</item>
     </string-array>
 
-    <!-- Email -->
     <string name="email_recipient">support@myapp.com</string>
     <string name="email_subject">支援请求</string>
-    <!-- Keeping email_body as non-translatable, but you can still translate the content if desired -->
     <string name="email_body" translatable="false">
         尊敬的客服团队，
 

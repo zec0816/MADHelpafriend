@@ -24,7 +24,6 @@ public class EmergencyHotlineActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_hotline);
 
-        // Set up BottomNavigationView
         setupBottomNavigation();
 
         // Read Aloud Button
@@ -39,15 +38,14 @@ public class EmergencyHotlineActivity extends BaseActivity {
             }
         });
 
-        // Read Aloud Button
         Button readAloudButton = findViewById(R.id.TTSButton);
         readAloudButton.setOnClickListener(view -> {
             if (isReadingAloud) {
-                stopTTS(); // Stop TTS if already speaking
+                stopTTS();
             } else {
-                readAloudEmergencyContent(); // Start reading aloud
+                readAloudEmergencyContent();
             }
-            isReadingAloud = !isReadingAloud; // Toggle the state
+            isReadingAloud = !isReadingAloud;
         });
 
 
@@ -85,7 +83,6 @@ public class EmergencyHotlineActivity extends BaseActivity {
     }
 
     private void readAloudEmergencyContent() {
-        // Fetch the content to read aloud
         String emergencyInfo = "Welcome to the Emergency Hotline Page. " +
                 "First contact, Jabatan Kebajikan Masyarakat, hotline plus 603 8323 1656. " +
                 "Second contact, Malaysian Association for the Blind, hotline plus 603 2272 2677. " +

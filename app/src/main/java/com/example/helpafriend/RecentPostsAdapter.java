@@ -31,8 +31,7 @@ public class RecentPostsAdapter extends RecyclerView.Adapter<RecentPostsAdapter.
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = posts.get(position);
 
-        // Set data to views
-        holder.usernameView.setText(post.getUsername()); // Assuming Post has a getUsername() method
+        holder.usernameView.setText(post.getUsername());
         holder.titleView.setText(post.getTitle());
         holder.contentView.setText(post.getContent());
         holder.dateView.setText(post.getCreatedAt());
@@ -48,7 +47,7 @@ public class RecentPostsAdapter extends RecyclerView.Adapter<RecentPostsAdapter.
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-            usernameView = itemView.findViewById(R.id.postUsername); // New username TextView
+            usernameView = itemView.findViewById(R.id.postUsername);
             titleView = itemView.findViewById(R.id.postTitle);
             contentView = itemView.findViewById(R.id.postContent);
             dateView = itemView.findViewById(R.id.postDate);

@@ -30,11 +30,9 @@ public class ForumCreatePostOKU extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_create_post_oku);
 
-        // Retrieve the saved username from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", null); // Get the username, default is null if not found
 
-        // Initialize your views
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextContent = findViewById(R.id.editTextContent);
         buttonSubmitPost = findViewById(R.id.buttonSubmitPost);
@@ -47,7 +45,7 @@ public class ForumCreatePostOKU extends BaseActivity {
                 String title = editTextTitle.getText().toString().trim();
                 String content = editTextContent.getText().toString().trim();
 
-                if (!title.isEmpty() && !content.isEmpty() && username != null) { // Check if username is not null
+                if (!title.isEmpty() && !content.isEmpty() && username != null) {
                     new SubmitPostTask().execute(title, content);
                 } else {
                     Toast.makeText(ForumCreatePostOKU.this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
