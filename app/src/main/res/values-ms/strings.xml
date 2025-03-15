@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BantuRakan</string>
+
+    <string-array name="roles_array">
+        <item>OKU</item>
+        <item>Sukarelawan</item>
+    </string-array>
+
+    <string name="email_recipient">support@myapp.com</string>
+    <string name="email_subject">Permintaan Sokongan</string>
+    <string name="email_body" translatable="false">
+        Pasukan Sokongan yang dihormati,
+
+        Sila jelaskan masalah anda di sini...
+
+        ---
+    </string>
+    <string name="error_no_email_app" translatable="false">Tiada aplikasi e-mel ditemui!</string>
+
+    <string name="settings_title">Tetapan</string>
+    <string name="preferences">Keutamaan</string>
+    <string name="dark_mode">Mod Gelap</string>
+    <string name="notifications">Pemberitahuan</string>
+    <string name="language">Bahasa</string>
+    <string name="font_size">Saiz Fon</string>
+    <string name="logout">Log Keluar</string>
+    <string name="delete_account">Hapus Akaun</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="select_font_size">Pilih Saiz Fon</string>
+    <string name="small">Kecil</string>
+    <string name="medium">Sederhana</string>
+    <string name="large">Besar</string>
+    <string name="cancel">Batal</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="delete_account_confirm">Adakah anda pasti ingin menghapuskan akaun anda?</string>
+    <string name="dark_mode_enabled">Mod gelap diaktifkan</string>
+    <string name="dark_mode_disabled">Mod gelap dimatikan</string>
+    <string name="change_successful">Perubahan berjaya disimpan</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="app_settings">Tetapan Aplikasi</string>
+    <string name="help_and_support">Bantuan dan Sokongan</string>
+    <string name="donate_to_us">Derma kepada Kami</string>
+    <string name="emergency_hotline">Talian Kecemasan</string>
+    <string name="create_a_post">Buat Pos</string>
+    <string name="forum_page">Halaman Forum</string>
+    <string name="submit_post">Hantar Pos</string>
+    <string name="write_your_post_content_here">Tulis Kandungan Pos Anda Di Sini</string>
+    <string name="post_title">Tajuk Pos</string>
+    <string name="request_for_a_help_now">Mohon Bantuan Sekarang</string>
+    <string name="recent_post_on_forum">Pos Terkini di Forum</string>
+    <string name="welcome">Selamat Datang</string>
+    <string name="no_recent_post_available">Tiada Pos Terkini Tersedia</string>
+    <string name="enter_password">Masukkan Kata Laluan</string>
+    <string name="verify_password_title">Sahkan Kata Laluan</string>
+    <string name="verify_button">Sahkan</string>
+    <string name="cancel_button">Batal</string>
+    <string name="password_required_error">Kata laluan diperlukan</string>
+    <string name="current_username">Nama Pengguna Semasa</string>
+    <string name="new_username">Nama Pengguna Baru</string>
+    <string name="new_password">Kata Laluan Baru</string>
+    <string name="confirm_password">Sahkan Kata Laluan</string>
+    <string name="save_changes">Simpan Perubahan</string>
+    <string name="frequently_asked_question">Soalan Lazim</string>
+    <string name="contact_support">Hubungi Sokongan</string>
+    <string name="back">Kembali</string>
+    <string name="faq_create_account_question">Soalan: Bagaimana cara membuat akaun?</string>
+    <string name="faq_create_account_answer">Jawapan: Anda boleh membuat akaun dengan mengklik butang Daftar pada skrin log masuk dan mengisi maklumat yang diperlukan.</string>
+    <string name="faq_change_username_question">Soalan: Bagaimana saya boleh menukar nama pengguna saya?</string>
+    <string name="faq_change_username_answer">Jawapan: Untuk menukar nama pengguna anda, pergi ke halaman Tetapan, pilih Edit Profil, dan kemas kini nama pengguna anda. Simpan perubahan untuk mengesahkan.</string>
+
+    <string name="faq_change_password_question">Soalan: Bagaimana saya boleh menukar kata laluan saya?</string>
+    <string name="faq_change_password_answer">Jawapan: Untuk menukar kata laluan anda, pergi ke Tetapan, pilih Tukar Kata Laluan, masukkan kata laluan semasa dan tetapkan kata laluan baharu. Simpan perubahan untuk mengemas kini kata laluan anda.</string>
+
+    <string name="faq_change_profile_picture_question">Soalan: Bagaimana saya boleh menukar gambar profil saya?</string>
+    <string name="faq_change_profile_picture_answer">Jawapan: Pergi ke bahagian Profil, ketik pada gambar profil semasa anda, dan muat naik imej baharu.</string>
+    <string name="settings">Tetapan</string>
+    <string name="donate">Derma</string>
+    <string name="enter_donation_amount">Masukkan Jumlah Derma</string>
+    <string name="example_donation_amount">contoh: 50.00</string>
+    <string name="select_payment_method">Pilih Kaedah Pembayaran</string>
+    <string name="donate_now">Derma Sekarang</string>
+    <string name="nav_home">Laman Utama</string>
+    <string name="nav_forum">Forum</string>
+    <string name="nav_emergency_contact">Kecemasan</string>
+    <string name="nav_activity">Aktiviti</string>
+    <string name="nav_profile">Profil</string>
+    <string name="pending_requests">Permintaan Tertunda</string>
+    <string name="accepted_requests">Permintaan Diterima</string>
+    <string name="leaderboard">Papan Pendahulu</string>
+
+
+
+
+</resources>

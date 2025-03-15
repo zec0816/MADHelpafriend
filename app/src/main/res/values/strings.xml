@@ -5,4 +5,93 @@
         <item>OKU</item>
         <item>Volunteer</item>
     </string-array>
+
+    <string name="email_recipient">support@myapp.com</string>
+    <string name="email_subject">Support Request</string>
+    <string name="email_body" translatable="false">Dear Support Team,\n\nPlease describe your issue here...\n\n---</string>
+    <string name="error_no_email_app" translatable="false">No email application found!</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="preferences">Preferences</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notifications">Notifications</string>
+    <string name="language">Language</string>
+    <string name="font_size">Font Size</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="select_language">Select Language</string>
+    <string name="select_font_size">Select Font Size</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_account_confirm">Are you sure you want to delete your account?</string>
+    <string name="dark_mode_enabled">Dark mode enabled</string>
+    <string name="dark_mode_disabled">Dark mode disabled</string>
+    <string name="change_successful">Changes saved successfully</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="app_settings">App Settings</string>
+    <string name="help_and_support">Help and Support</string>
+    <string name="donate_to_us">Donate to Us</string>
+    <string name="emergency_hotline">EMERGENCY HOTLINE</string>
+    <string name="create_a_post">Create a Post</string>
+    <string name="forum_page">Forum Page</string>
+    <string name="submit_post">Submit Post</string>
+    <string name="write_your_post_content_here">Write Your Post Content Here</string>
+    <string name="post_title">Post Title</string>
+    <string name="request_for_a_help_now">Request for Help Now</string>
+    <string name="recent_post_on_forum">Recent Posts on Forum</string>
+    <string name="welcome">Welcome</string>
+    <string name="no_recent_post_available">No Recent Post Available</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="verify_password_title">Verify Password</string>
+    <string name="verify_button">Verify</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="password_required_error">Password is required</string>
+    <string name="current_username">Current Username</string>
+    <string name="new_username">New Username</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="frequently_asked_question">Frequently Asked Questions</string>
+    <string name="back">Back</string>
+    <string name="faq_create_account_question">Q: How can I create an account?</string>
+    <string name="faq_create_account_answer">A: You can create an account by clicking the Sign Up button on the login screen and filling in the required details.</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="faq_change_username_question">Q: How can I change my username?</string>
+    <string name="faq_change_username_answer">A: To change your username, navigate to the Settings page, select Edit Profile, and update your username. Save the changes to confirm.</string>
+
+    <string name="faq_change_password_question">Q: How can I change my password?</string>
+    <string name="faq_change_password_answer">A: To change your password, go to Settings, select Change Password, and enter your current password followed by the new password. Save the changes to update your password.</string>
+
+    <string name="faq_change_profile_picture_question">Q: How can I change my profile picture?</string>
+    <string name="faq_change_profile_picture_answer">A: Go to the Profile section, tap on your current profile picture, and upload a new image.</string>
+
+    <string name="settings">Settings</string>
+    <string name="donate">Donate</string>
+    <string name="enter_donation_amount">Enter Donation Amount</string>
+    <string name="example_donation_amount">e.g., 50.00</string>
+    <string name="select_payment_method">Select Payment Method</string>
+    <string name="donate_now">Donate Now</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_forum">Forum</string>
+    <string name="nav_emergency_contact">Emergency</string>
+    <string name="nav_activity">Activity</string>
+    <string name="nav_profile">Profile</string>
+    <string name="pending_requests">Pending Requests</string>
+    <string name="accepted_requests">Accepted Requests</string>
+    <string name="leaderboard">Leaderboard</string>
+
+
+
+
+    <string-array name="languages">
+        <item>English (US)</item>
+        <item>French</item>
+        <item>Spanish</item>
+    </string-array>
+
+
 </resources>

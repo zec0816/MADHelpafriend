@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">मित्र की सहायता</string>
+
+    <string-array name="roles_array">
+        <item>OKU</item>
+        <item>स्वयंसेवक</item>
+    </string-array>
+
+    <string name="email_recipient">support@myapp.com</string>
+    <string name="email_subject">सहायता अनुरोध</string>
+    <!-- Keeping email_body as non-translatable here -->
+    <string name="email_body" translatable="false">
+        प्रिय सहायता टीम,
+
+        कृपया यहां अपनी समस्या का वर्णन करें...
+
+        ---
+    </string>
+    <string name="error_no_email_app" translatable="false">कोई ईमेल एप्लिकेशन नहीं मिला!</string>
+
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="preferences">प्राथमिकताएँ</string>
+    <string name="dark_mode">डार्क मोड</string>
+    <string name="notifications">सूचनाएँ</string>
+    <string name="language">भाषा</string>
+    <string name="font_size">फॉन्ट आकार</string>
+    <string name="logout">लॉगआउट</string>
+    <string name="delete_account">खाता हटाएं</string>
+    <string name="select_language">भाषा चुनें</string>
+    <string name="select_font_size">फॉन्ट आकार चुनें</string>
+    <string name="small">छोटा</string>
+    <string name="medium">मध्यम</string>
+    <string name="large">बड़ा</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="yes">हाँ</string>
+    <string name="no">नहीं</string>
+    <string name="delete_account_confirm">क्या आप निश्चित हैं कि आप अपना खाता हटाना चाहते हैं?</string>
+    <string name="dark_mode_enabled">डार्क मोड सक्षम किया गया</string>
+    <string name="dark_mode_disabled">डार्क मोड अक्षम किया गया</string>
+    <string name="change_successful">परिवर्तन सफलतापूर्वक सहेजे गए</string>
+    <string name="edit_profile">प्रोफ़ाइल संपादित करें</string>
+    <string name="app_settings">एप्लिकेशन सेटिंग्स</string>
+    <string name="help_and_support">सहायता और समर्थन</string>
+    <string name="donate_to_us">हमको दान करें</string>
+    <string name="emergency_hotline">आपातकालीन हेल्पलाइन</string>
+    <string name="create_a_post">एक पोस्ट बनाएं</string>
+    <string name="forum_page">फोरम पेज</string>
+    <string name="submit_post">पोस्ट सबमिट करें</string>
+    <string name="write_your_post_content_here">यहां अपना पोस्ट सामग्री लिखें</string>
+    <string name="post_title">पोस्ट शीर्षक</string>
+    <string name="request_for_a_help_now">तुरंत मदद के लिए अनुरोध करें</string>
+    <string name="recent_post_on_forum">फोरम पर हाल की पोस्ट</string>
+    <string name="welcome">स्वागत है</string>
+    <string name="no_recent_post_available">कोई हाल की पोस्ट उपलब्ध नहीं</string>
+    <string name="enter_password">पासवर्ड दर्ज करें</string>
+    <string name="verify_password_title">पासवर्ड सत्यापित करें</string>
+    <string name="verify_button">सत्यापित करें</string>
+    <string name="cancel_button">रद्द करें</string>
+    <string name="password_required_error">पासवर्ड आवश्यक है</string>
+    <string name="current_username">वर्तमान उपयोगकर्ता नाम</string>
+    <string name="new_username">नया उपयोगकर्ता नाम</string>
+    <string name="new_password">नया पासवर्ड</string>
+    <string name="confirm_password">पासवर्ड की पुष्टि करें</string>
+    <string name="save_changes">बदलाव सहेजें</string>
+    <string name="frequently_asked_question">अक्सर पूछे जाने वाले प्रश्न</string>
+    <string name="contact_support">समर्थन से संपर्क करें</string>
+    <string name="back">वापस</string>
+    <string name="faq_create_account_question">प्रश्न: मैं एक खाता कैसे बना सकता हूं?</string>
+    <string name="faq_create_account_answer">उत्तर: आप लॉगिन स्क्रीन पर साइन अप बटन पर क्लिक करके और आवश्यक विवरण भरकर एक खाता बना सकते हैं।</string>
+    <string name="faq_change_username_question">प्रश्न: मैं अपना उपयोगकर्ता नाम कैसे बदल सकता हूँ?</string>
+    <string name="faq_change_username_answer">उत्तर: उपयोगकर्ता नाम बदलने के लिए सेटिंग्स पेज पर जाएं, ्रोफ़ाइल संपादित करें चुनें, और अपना उपयोगकर्ता नाम अपडेट करें। परिवर्तनों को सहेजें।</string>
+
+    <string name="faq_change_password_question">प्रश्न: मैं अपना पासवर्ड कैसे बदल सकता हूँ?</string>
+    <string name="faq_change_password_answer">उत्तर: पासवर्ड बदलने के लिए सेटिंग्स पेज पर जाएं, पासवर्ड बदलें चुनें, और अपना वर्तमान पासवर्ड और नया पासवर्ड दर्ज करें। परिवर्तनों को सहेजें।</string>
+
+    <string name="faq_change_profile_picture_question">प्रश्न: मैं अपनी प्रोफ़ाइल तस्वीर कैसे बदल सकता हूँ?</string>
+    <string name="faq_change_profile_picture_answer">उत्तर: प्रोफ़ाइल अनुभाग पर जाएं, अपनी वर्तमान प्रोफ़ाइल तस्वीर पर टैप करें, और एक नई छवि अपलोड करें।</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="donate">दान</string>
+    <string name="enter_donation_amount">दान की राशि दर्ज करें</string>
+    <string name="example_donation_amount">उदा: 50.00</string>
+    <string name="select_payment_method">भुगतान विधि चुनें</string>
+    <string name="donate_now">अभी दान करें</string>
+    <string name="nav_home">होम</string>
+    <string name="nav_forum">फोरम</string>
+    <string name="nav_emergency_contact">आपातकालीन संपर्क</string>
+    <string name="nav_activity">गतिविधि</string>
+    <string name="nav_profile">प्रोफ़ाइल</string>
+    <string name="pending_requests">लंबित अनुरोध</string>
+    <string name="accepted_requests">स्वीकृत अनुरोध</string>
+    <string name="leaderboard">लीडरबोर्ड</string>
+
+
+
+</resources>

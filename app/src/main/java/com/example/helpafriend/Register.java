@@ -3,7 +3,9 @@ package com.example.helpafriend;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,19 +25,20 @@ import java.util.HashMap;
 public class Register extends AppCompatActivity {
 
     private EditText etUsername, etPassword, etEmail;
-    private Spinner spinnerRole; // Declare Spinner for role selection
+    private Spinner spinnerRole;
     private Button btnRegister;
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize views
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
-        spinnerRole = findViewById(R.id.spinnerRole); // Initialize Spinner
+        spinnerRole = findViewById(R.id.spinnerRole);
         btnRegister = findViewById(R.id.btnRegister);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -45,15 +48,28 @@ public class Register extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 String email = etEmail.getText().toString();
-                String role = spinnerRole.getSelectedItem().toString(); // Get selected role
+                String role = spinnerRole.getSelectedItem().toString();
 
-                if (!(username.isEmpty() || password.isEmpty() || email.isEmpty())){
+                if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please fill in your info", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Db_Contract.urlRegister, new Response.Listener<String>() {
+                // Validate email format
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Db_Contract.urlRegister, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
 
                             Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("username", username);
+                            editor.apply();
 
                             startActivity(new Intent(getApplicationContext(), Login.class));
                         }
@@ -71,7 +87,7 @@ public class Register extends AppCompatActivity {
                             params.put("username", username);
                             params.put("password", password);
                             params.put("email", email);
-                            params.put("role", role); // Include role in parameters
+                            params.put("role", role);
 
                             return params;
                         }
@@ -80,10 +96,7 @@ public class Register extends AppCompatActivity {
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     requestQueue.add(stringRequest);
 
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please fill in your info", Toast.LENGTH_SHORT).show();
                 }
-            }
         });
     }
 }
